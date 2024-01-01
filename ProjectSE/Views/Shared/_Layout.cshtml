@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar.navbar-fixed-top {
+            background: linear-gradient(135deg, #101FA7, #10E3E3);
+            color: white;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container.body-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 15px;
+            position: fixed;
+            top: 70px;
+            left: 190px;
+            right: 0;
+            bottom: 0;
+        }
+
+        .container h2 {
+            color: white;
+            left: 10px;
+            text-align: left;
+        }
+
+        .container {
+            display: flex;
+        }
+
+
+
+
+        aside {
+            top: 55px;
+            left: 0;
+            right: 0;
+            background: #76767A;
+            width: 200px;
+            height: 900px;
+            position: fixed;
+            bottom: 0;
+        }
+
+        .menu {
+            padding: 15px 0 0 0;
+            font-size: 22px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+        }
+
+            li a {
+                color: white;
+                text-decoration: none;
+            }
+
+            li span {
+                margin-left: 10px;
+            }
+
+        .menu li.clicked {
+            background-color: #68C4F5;
+        }
+
+        .log-off {
+            margin-top: 610px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: center;
+            font-size: 28px;
+            width: 200px;
+            height: 60px;
+            background: #101FA7;
+        }
+
+            .log-off span {
+                padding-left: 10px;
+                display: flex;
+                align-items: center;
+                text-align: center;
+            }
+
+            .log-off a {
+                color: white;
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container ">
+            <h2 class="text-left">ระบบแจ้งซ่อมหอพักจารุนันท์</h2>
+        </div>
+    </div>
+
+    <aside>
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-home'></i>
+                        <box-icon type='solid' name='home'></box-icon>
+                    </a>
+                    <span>@Html.ActionLink("หน้าหลัก", "Index", "Home")</span>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-wrench'></i>
+                        <box-icon type='solid' name='wrench'></box-icon>
+                    </a>
+                    <span>@Html.ActionLink("เมนูแจ้งซ่อม", "Index", "Home")</span>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-archive'></i>
+                        <box-icon name='archive'></box-icon>
+                    </a>
+                    <span>@Html.ActionLink("รายการแจ้งซ่อม", "Index", "Home")</span>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-revision'></i>
+                        <box-icon name='revision'></box-icon>
+                    </a>
+                    <span>@Html.ActionLink("รอดำเนินการ", "Index", "Home")</span>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-clipboard'></i>
+                        <box-icon name='clipboard'></box-icon>
+                    </a>
+                    <span>@Html.ActionLink("แบบประเมิน", "Index", "Home")</span>
+                </li>
+
+            </ul>
+
+            <div class="log-off">
+
+                <a href="#">
+                    <i class='bx bx-user-circle' style='color:#ffffff'></i>
+                    <box-icon name='user-circle' color='#ffffff'></box-icon>
+                </a>
+                <span>@Html.ActionLink("ออกจากระบบ", "Login", "Account")</span>
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </aside>
+    <div class="container body-content">
+        @RenderBody()
+        
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

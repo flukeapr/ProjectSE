@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<head>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* ทำให้ body เต็มความสูงของ viewport */
+            margin: 0;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .main {
+            margin-top: 20px;
+            border-radius: 70px;
+            margin-left: 20px;
+            background: gray;
+            width: 1600px;
+            height: 800px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail {
+            display: flex;
+            align-content: space-evenly;
+        }
+
+            .detail p {
+                align-content: space-between;
+            }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <main class="main">
+            <h1>หอพักจารุนันท์</h1>
+            <div class="detail">
+                <p>
+                    หอพักจารุนันท์<br />
+                    486 หมู่ 5 ต.สุรนารี อ.เมือง<br />
+                    จ.นครราชสีมา 30000
+                </p>
+                <p>
+                    หอพักชายและหญิง<br />สำหรับนักศึกษามหาวิทยาลัยเทคโนโลยีสุรนารี
+                </p>
+            </div>
+        </main>
+    </div>
+</body>

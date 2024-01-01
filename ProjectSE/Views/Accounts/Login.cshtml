@@ -1,0 +1,105 @@
+﻿@model ProjectSE.Models.Account
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1223A8, #19C6E7, #E4EEEE)no-repeat;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .Login {
+            background-color: white;
+            width: 700px;
+            height: 600px;
+            border-radius: 20px;
+            justify-content: center;
+            display: grid;
+            align-content: center;
+            text-align: center;
+        }
+
+        .form-group {
+            grid-template-columns: 0.5fr 0fr;
+            display: grid;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .col-md-offset-2 input {
+            width: 160px;
+            height: 45px;
+            background-color: #151D39;
+            color: white;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        #userName, #password {
+            width: 300px;
+            height: 50px;
+            border-radius: 10px;
+            border: none;
+            background-color: #D9D9D9;
+            outline: none;
+            font-size: 20px;
+            text-align: left;
+        }
+
+        label {
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            padding-right: 2px;
+        }
+    </style>
+</head>
+<div class="Login">
+    <h1>ระบบแจ้งซ่อมหอพักจารุนันท์</h1>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label for="username">User : </label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control", id = "userName" } })
+                    @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password : </label>
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control", id = "password" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="เข้าสู่ระบบ" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
