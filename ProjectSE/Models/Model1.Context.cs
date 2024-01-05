@@ -28,8 +28,8 @@ namespace ProjectSE.Models
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Building> Buildings { get; set; }
         public virtual DbSet<Renter> Renters { get; set; }
+        public virtual DbSet<Repair> Repairs { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Technician> Technicians { get; set; }
-        public virtual DbSet<Repair> Repairs { get; set; }
     }
 }

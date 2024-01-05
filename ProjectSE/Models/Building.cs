@@ -18,7 +18,6 @@ namespace ProjectSE.Models
         public Building()
         {
             this.Renters = new HashSet<Renter>();
-            this.Repairs = new HashSet<Repair>();
         }
     
         public int room_Id { get; set; }
@@ -27,7 +26,5 @@ namespace ProjectSE.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Renter> Renters { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Repair> Repairs { get; set; }
     }
 }

@@ -4,16 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="819299dc26484fbd930e03f212acfd0c" Name="Diagram1">
+      <Diagram DiagramId="9653e268c76a4f5fb5e27ca3ee67ff69" Name="Diagram1">
         <EntityTypeShape EntityType="DatabaseSEModel.Account" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseSEModel.Building" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseSEModel.Renter" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSEModel.Repair" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseSEModel.Role" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseSEModel.Technician" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSEModel.Technician" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
         <AssociationConnector Association="DatabaseSEModel.FK_Role_ToRole" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseSEModel.FK_roomId_ToRoomId" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DatabaseSEModel.Repair" Width="1.5" PointX="3" PointY="7.25" />
-        <AssociationConnector Association="DatabaseSEModel.FK_Repair_ToBuildingroom" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

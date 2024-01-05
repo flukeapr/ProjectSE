@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ProjectSE.Models.Repair>
+
+@{
+   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListRepair</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nameInform)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.topicRepair)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.typeRepair)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.picture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.roomId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.building_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.floor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.technician_Id)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nameInform);
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.topicRepair)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.typeRepair)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.details)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.picture)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.roomId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.building_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.floor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.technician_Id)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.repair_Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.repair_Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.repair_Id })
+                </td>
+            </tr>
+        }
+        }
+
+
+
+    </table>
+</body>
+</html>

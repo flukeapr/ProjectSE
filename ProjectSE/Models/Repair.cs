@@ -25,9 +25,10 @@ namespace ProjectSE.Models
         public Nullable<System.TimeSpan> time { get; set; }
         public string status { get; set; }
         public Nullable<int> roomId { get; set; }
+        public List<String> selectedbuilding_Name { get; set; }
+        public List<String> selectedFloor { get; set; }
         public string building_name { get; set; }
-        public Nullable<int> floor { get; set; }
-    
-        public virtual Building Building { get; set; }
+        public string floor { get; set; }
+        public Nullable<int> technician_Id { get; set; }
     }
 }

@@ -37,10 +37,10 @@
             <PropertyRef Name="repair_Id" />
           </Key>
           <Property Name="repair_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nameInform" Type="nvarchar" MaxLength="50" />
-          <Property Name="topicRepair" Type="nvarchar" MaxLength="50" />
-          <Property Name="typeRepair" Type="nvarchar" MaxLength="50" />
-          <Property Name="details" Type="nvarchar" MaxLength="200" />
+          <Property Name="nameInform" Type="varchar" MaxLength="50" />
+          <Property Name="topicRepair" Type="varchar" MaxLength="50" />
+          <Property Name="typeRepair" Type="varchar" MaxLength="50" />
+          <Property Name="details" Type="varchar" MaxLength="200" />
           <Property Name="picture" Type="varchar" MaxLength="50" />
           <Property Name="phone" Type="nchar" MaxLength="10" />
           <Property Name="date" Type="date" />
@@ -48,7 +48,8 @@
           <Property Name="status" Type="nvarchar" MaxLength="50" />
           <Property Name="roomId" Type="int" />
           <Property Name="building_name" Type="varchar" MaxLength="50" />
-          <Property Name="floor" Type="int" />
+          <Property Name="floor" Type="varchar" MaxLength="50" />
+          <Property Name="technician_Id" Type="int" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -65,19 +66,8 @@
           <Property Name="technicianName" Type="nvarchar" MaxLength="50" />
           <Property Name="typeRepair" Type="nvarchar" MaxLength="50" />
           <Property Name="phone" Type="nchar" MaxLength="10" />
+          <Property Name="image" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_Repair_ToBuildingroom">
-          <End Role="Building" Type="Self.Building" Multiplicity="0..1" />
-          <End Role="Repair" Type="Self.Repair" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Building">
-              <PropertyRef Name="room_Id" />
-            </Principal>
-            <Dependent Role="Repair">
-              <PropertyRef Name="roomId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Role_ToRole">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="Account" Type="Self.Account" Multiplicity="*" />
@@ -109,10 +99,6 @@
           <EntitySet Name="Repair" EntityType="Self.Repair" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Technician" EntityType="Self.Technician" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Repair_ToBuildingroom" Association="Self.FK_Repair_ToBuildingroom">
-            <End Role="Building" EntitySet="Building" />
-            <End Role="Repair" EntitySet="Repair" />
-          </AssociationSet>
           <AssociationSet Name="FK_Role_ToRole" Association="Self.FK_Role_ToRole">
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
@@ -144,7 +130,6 @@
           <Property Name="building_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="floor" Type="Int32" />
           <NavigationProperty Name="Renters" Relationship="Self.FK_roomId_ToRoomId" FromRole="Building" ToRole="Renter" />
-          <NavigationProperty Name="Repairs" Relationship="DatabaseSEModel.FK_Repair_ToBuildingroom" FromRole="Building" ToRole="Repair" />
         </EntityType>
         <EntityType Name="Renter">
           <Key>
@@ -156,6 +141,25 @@
           <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="room_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Building" Relationship="Self.FK_roomId_ToRoomId" FromRole="Renter" ToRole="Building" />
+        </EntityType>
+        <EntityType Name="Repair">
+          <Key>
+            <PropertyRef Name="repair_Id" />
+          </Key>
+          <Property Name="repair_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameInform" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="topicRepair" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="typeRepair" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="details" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="picture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="time" Type="Time" Precision="7" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="roomId" Type="Int32" />
+          <Property Name="building_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="floor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="technician_Id" Type="Int32" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -173,6 +177,7 @@
           <Property Name="technicianName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="typeRepair" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Role_ToRole">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
@@ -202,6 +207,7 @@
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Buildings" EntityType="Self.Building" />
           <EntitySet Name="Renters" EntityType="Self.Renter" />
+          <EntitySet Name="Repairs" EntityType="Self.Repair" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Technicians" EntityType="Self.Technician" />
           <AssociationSet Name="FK_Role_ToRole" Association="Self.FK_Role_ToRole">
@@ -212,43 +218,7 @@
             <End Role="Building" EntitySet="Buildings" />
             <End Role="Renter" EntitySet="Renters" />
           </AssociationSet>
-          <EntitySet Name="Repairs" EntityType="DatabaseSEModel.Repair" />
-          <AssociationSet Name="FK_Repair_ToBuildingroom" Association="DatabaseSEModel.FK_Repair_ToBuildingroom">
-            <End Role="Building" EntitySet="Buildings" />
-            <End Role="Repair" EntitySet="Repairs" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Repair">
-          <Key>
-            <PropertyRef Name="repair_Id" />
-          </Key>
-          <Property Name="repair_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nameInform" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="topicRepair" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="typeRepair" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="details" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="picture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="date" Type="DateTime" Precision="0" />
-          <Property Name="time" Type="Time" Precision="7" />
-          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="roomId" Type="Int32" />
-          <Property Name="building_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="floor" Type="Int32" />
-          <NavigationProperty Name="Building" Relationship="DatabaseSEModel.FK_Repair_ToBuildingroom" FromRole="Repair" ToRole="Building" />
-        </EntityType>
-        <Association Name="FK_Repair_ToBuildingroom">
-          <End Type="DatabaseSEModel.Building" Role="Building" Multiplicity="0..1" />
-          <End Type="DatabaseSEModel.Repair" Role="Repair" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Building">
-              <PropertyRef Name="room_Id" />
-            </Principal>
-            <Dependent Role="Repair">
-              <PropertyRef Name="roomId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -285,6 +255,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Repairs">
+            <EntityTypeMapping TypeName="DatabaseSEModel.Repair">
+              <MappingFragment StoreEntitySet="Repair">
+                <ScalarProperty Name="repair_Id" ColumnName="repair_Id" />
+                <ScalarProperty Name="nameInform" ColumnName="nameInform" />
+                <ScalarProperty Name="topicRepair" ColumnName="topicRepair" />
+                <ScalarProperty Name="typeRepair" ColumnName="typeRepair" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="roomId" ColumnName="roomId" />
+                <ScalarProperty Name="building_name" ColumnName="building_name" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="technician_Id" ColumnName="technician_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="DatabaseSEModel.Role">
               <MappingFragment StoreEntitySet="Role">
@@ -296,29 +286,11 @@
           <EntitySetMapping Name="Technicians">
             <EntityTypeMapping TypeName="DatabaseSEModel.Technician">
               <MappingFragment StoreEntitySet="Technician">
+                <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="technician_Id" ColumnName="technician_Id" />
                 <ScalarProperty Name="technicianName" ColumnName="technicianName" />
                 <ScalarProperty Name="typeRepair" ColumnName="typeRepair" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Repairs">
-            <EntityTypeMapping TypeName="DatabaseSEModel.Repair">
-              <MappingFragment StoreEntitySet="Repair">
-                <ScalarProperty Name="floor" ColumnName="floor" />
-                <ScalarProperty Name="building_name" ColumnName="building_name" />
-                <ScalarProperty Name="roomId" ColumnName="roomId" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="time" ColumnName="time" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="picture" ColumnName="picture" />
-                <ScalarProperty Name="details" ColumnName="details" />
-                <ScalarProperty Name="typeRepair" ColumnName="typeRepair" />
-                <ScalarProperty Name="topicRepair" ColumnName="topicRepair" />
-                <ScalarProperty Name="nameInform" ColumnName="nameInform" />
-                <ScalarProperty Name="repair_Id" ColumnName="repair_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

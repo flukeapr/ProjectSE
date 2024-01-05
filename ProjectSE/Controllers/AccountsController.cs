@@ -22,6 +22,8 @@ namespace ProjectSE.Controllers
             return View();
         }
         [HttpPost]
+       
+        [ValidateAntiForgeryToken]
         public ActionResult Login(Account model)
         {
             
@@ -31,11 +33,17 @@ namespace ProjectSE.Controllers
                 {
                     if (user.role == 1)
                     {
+                    
+                    return RedirectToAction("Index", "Admin");
+                }
+                else if (user.role == 2)
+                {
+                   
                     return RedirectToAction("Index", "Home");
                 }
-                    else if (user.role == 3)
+                else if (user.role == 3)
                     {
-                        return RedirectToAction("About", "Home");
+                        return RedirectToAction("Index", "Home");
                     }
                 else
                 {
@@ -45,8 +53,14 @@ namespace ProjectSE.Controllers
                 }
                 
                 return View();
-            }  
-           
+            }
+        
+        
+        public ActionResult LogOff()
+        {
+            
+            return View("Login");
         }
+    }
     }
 

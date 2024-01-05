@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
@@ -14,27 +14,27 @@
             padding: 10px;
             position: fixed;
             top: 0;
-            left: 0;
+            left: 0; 
             right: 0;
             z-index: 1000;
         }
 
         body {
             display: flex;
-            flex-direction: column;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
 
         .container.body-content {
             flex-grow: 1;
             overflow-y: auto;
             padding: 15px;
-            position: fixed;
-            top: 70px;
-            left: 190px;
-            right: 0;
-            bottom: 0;
+            position: relative;
+            top: 0;
+            left: 0;
+           
+            
         }
 
         .container h2 {
@@ -43,31 +43,32 @@
             text-align: left;
         }
 
-        .container {
-            display: flex;
-        }
+       
 
 
 
 
         aside {
-            top: 55px;
+            top: 70px;
             left: 0;
             right: 0;
             background: #76767A;
             width: 200px;
             height: 900px;
-            position: fixed;
+            position: sticky;
             bottom: 0;
+            height: calc(100vh - 70px);
         }
 
-        .menu {
+        .menu span{
             padding: 15px 0 0 0;
             font-size: 22px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
         }
-
+        .menu a{
+            font-size:24px;
+        }
         ul {
             list-style: none;
             padding: 0;
@@ -92,10 +93,11 @@
         }
 
         .log-off {
-            margin-top: 610px;
+            margin-top: 520px;
             display: flex;
+            justify-content: center;
             flex-direction: row;
-            align-items: center;
+           padding-top:5px;
             text-align: center;
             font-size: 28px;
             width: 200px;
@@ -103,17 +105,13 @@
             background: #101FA7;
         }
 
-            .log-off span {
-                padding-left: 10px;
-                display: flex;
-                align-items: center;
-                text-align: center;
-            }
-
             .log-off a {
+                margin-top:5px;
+                display: flex;
                 color: white;
                 text-decoration: none;
             }
+           
     </style>
 </head>
 <body>
@@ -129,64 +127,83 @@
             <ul>
                 <li>
                     <a href="#">
-                        <i class='bx bxs-home'></i>
-                        <box-icon type='solid' name='home'></box-icon>
+                        <span><box-icon type='solid' name='home'></box-icon></span>
+                        <span>@Html.ActionLink("หน้าหลัก", "Index", "Home")</span>
                     </a>
-                    <span>@Html.ActionLink("หน้าหลัก", "Index", "Home")</span>
                 </li>
                 <li>
                     <a href="#">
-                        <i class='bx bxs-wrench'></i>
-                        <box-icon type='solid' name='wrench'></box-icon>
+                        <span> <box-icon type='solid' name='wrench'></box-icon></span>
+                        <span>@Html.ActionLink("เมนูแจ้งซ่อม", "MenuRepair", "Home")</span>
                     </a>
-                    <span>@Html.ActionLink("เมนูแจ้งซ่อม", "Index", "Home")</span>
                 </li>
                 <li>
                     <a href="#">
-                        <i class='bx bx-archive'></i>
-                        <box-icon name='archive'></box-icon>
+                        <span><box-icon name='archive'></box-icon></span>
+                        <span>@Html.ActionLink("รายการแจ้งซ่อม", "ListRepair", "Home")</span>
                     </a>
-                    <span>@Html.ActionLink("รายการแจ้งซ่อม", "Index", "Home")</span>
-
                 </li>
                 <li>
                     <a href="#">
-                        <i class='bx bx-revision'></i>
-                        <box-icon name='revision'></box-icon>
+                        <span><box-icon name='revision'></box-icon></span>
+                        <span>@Html.ActionLink("รอดำเนินการ", "Index", "Home")</span>
                     </a>
-                    <span>@Html.ActionLink("รอดำเนินการ", "Index", "Home")</span>
                 </li>
                 <li>
                     <a href="#">
-                        <i class='bx bx-clipboard'></i>
-                        <box-icon name='clipboard'></box-icon>
+                        <span><box-icon name='clipboard'></box-icon></span>
+                        <span>@Html.ActionLink("แบบประเมิน", "Index", "Home")</span>
                     </a>
-                    <span>@Html.ActionLink("แบบประเมิน", "Index", "Home")</span>
                 </li>
 
             </ul>
 
-            <div class="log-off">
-
-                <a href="#">
-                    <i class='bx bx-user-circle' style='color:#ffffff'></i>
-                    <box-icon name='user-circle' color='#ffffff'></box-icon>
-                </a>
-                <span>@Html.ActionLink("ออกจากระบบ", "Login", "Account")</span>
-
-
-            </div>
-
-
-
         </div>
+        <div class="log-off">
 
+            <a href="#">
+                <span> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAnxJREFUWEftWO1RA0EIZTsxlWgq0VRiUolaibES0wney0CGY2E/zj8Zx53JqJe95fF4sGChO1vlzvDQ3wDEzE9E9EBEz/ITv2Nd5HMmoo9SCv6eWlMMMfMLEb0KiBFDV2BEdB4FNwRIGAEQMLNlAdhhBFQXkID5DFC8E9GX9Z6ZEToNpYbVvgpQeC9dTUDM/LZoAmGaOlQ3MzNYxfuqMXx1LKWcMkQpINELAOmCDvaz8RLWwPAQqBBQEKYQjDCA0OBzy7CIgYDtXaSpDNC38agCI16DvUzkALf3BpnZnhvuqQCJ10etK6WUnQ8TMyMEvYy7+HeD8FUijwBZLyoBBtq67hFjKJTqDPyoDPYcXgGSQwEIq/IQDx07kUFklSZDpj3r9EpLHhDSVD0M09PpoBLmoFO2nKzseEBWG2ER6wESFll1t4QzkkXKogeUUmmKnQXd09h7KeUQJAVqUigND6jpmXhvvUPqwuiwqI1joa0tDMG7Vg3qVvaWzqYBCUs9UGHRM+wMh6wranco6s7Q1WF15K6mVWlopX0oyESgq8e9vscVx2baw1vb+4QX4EDn2OwUF0A3QS8dZV4YRR/p1ZG0Eq2OpNLS1NUhgGy1xqOrBy4zLAjfyNu+R/dlZ1R1bKj9wCUpobTG0nY0COmVKVcuwrsyAwTDtsvDgRYMeh3oJF1BeIfOaLWwPnRqvNkTu/TOzkjZ7TX50YEI39Cc5QSsWJuTx8gYlHmJcQZDoPZOEL6OPo/BtIJ9vxuDTFWGIdxfUQa1pKTfQT8A09QdNncZcpqYHaUB5NQbDq2NKUCOMYTFTqdgDwCUBfyzocuIp3cToJEYbd3zD6jH3A9zPZk0qn+1OwAAAABJRU5ErkJggg==" /> </span>
+                <span>@Html.ActionLink("ออกจากระบบ", "LogOff", "Accounts")</span>
+            </a>
+        </div>
 
     </aside>
     <div class="container body-content">
         @RenderBody()
-        
+
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuItems = document.querySelectorAll('.menu li');
+
+            menuItems.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    menuItems.forEach(function (otherItem) {
+                        otherItem.classList.remove('clicked');
+                    });
+
+                    item.classList.add('clicked');
+
+                    // เก็บข้อมูลสถานะคลิกใน session storage
+                    sessionStorage.setItem('clickedItem', item.textContent.trim());
+                });
+            });
+
+            // ตรวจสอบ session storage เมื่อโหลดหน้า
+            var clickedItemText = sessionStorage.getItem('clickedItem');
+            if (clickedItemText) {
+                menuItems.forEach(function (item) {
+                    if (item.textContent.trim() === clickedItemText) {
+                        item.classList.add('clicked');
+                    }
+                });
+            }
+        });
+    </script>
+
+
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
