@@ -10,12 +10,56 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>ListRepair</title>
+    <title>รายการแจ้งซ่อม</title>
+
+    <style>
+        body {
+        }
+
+        .topic-list {
+            margin: 100px 0 0 0;
+            width: 160px;
+            height: 30px;
+            background-color: #151D39;
+            border-radius: 10px;
+        }
+
+            .topic-list h3 {
+                display: flex;
+                justify-content: center;
+                color: white;
+            }
+
+        .table {
+            margin: 40px 0 0 0;
+            border: 1px solid #000000;
+        }
+
+            .table th,
+            .table td {
+                border: 1px solid #000000;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+        .status {
+            width: 100px;
+            height: 50px;
+            border-radius:10px;
+
+        }
+            .status .text-status {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 50px;
+            }
+    </style>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    <div class="topic-list">
+        <h3>รายการแจ้งซ่อม</h3>
+    </div>
     <table class="table">
         <tr>
             <th>
@@ -54,10 +98,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.floor)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.technician_Id)
-            </th>
-            <th></th>
+
+
         </tr>
 
         @foreach (var item in Model)
@@ -76,7 +118,7 @@
                     @Html.DisplayFor(modelItem => item.details)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.picture)
+                    <img src=@Url.Content("~/Content/Repair-image/"+(item.picture)) style="width: 100px;height: auto" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.phone)
@@ -88,7 +130,11 @@
                     @Html.DisplayFor(modelItem => item.time)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.status)
+                    <div class="status" style="background-color: @(GetStatusColor(item.status))">
+                        <label class="text-status">@Html.DisplayFor(modelItem => item.status)</label>
+                        
+                    </div>
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.roomId)
@@ -99,20 +145,41 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.floor)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.technician_Id)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.repair_Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.repair_Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.repair_Id })
-                </td>
+
+
             </tr>
-        }
+
         }
 
 
 
     </table>
+
+    @functions {
+        // ฟังก์ชั่นเพื่อรับสีของสถานะ
+        string GetStatusColor(string status)
+        {
+            switch (status)
+            {
+                case "รอดำเนินการ":
+                    return "rgb(104, 196, 245, 0.4)";
+                case "รับเรื่อง":
+                    return "#00FF00";
+                case "เดินทาง":
+                    return "#FFFF00";
+                case "ถึงแล้ว":
+                    return "#FFFF00";
+                case "สำเร็จ":
+                    return "#FFFF00";
+                case "ไม่สำเร็จ":
+                    return "#FFFF00";
+                case "ยกเลิกแล้ว":
+                    return "#FFFF00";
+                default:
+                    return "#FFFFFF"; // สีขาว (default)
+            }
+        }
+    }
+    
 </body>
 </html>

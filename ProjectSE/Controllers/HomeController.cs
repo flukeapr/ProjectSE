@@ -18,7 +18,19 @@ namespace ProjectSE.Controllers
 
         public ActionResult MenuRepair()
         {
-            
+            var userName = Session["UserName"] as string;
+            var TypeRepairCategories = new List<String>
+        {
+            "น้ำปะปา" ,
+            "ไฟฟ้า" ,
+            "เฟอนิเจอร์" ,
+            "เครื่องใช้ไฟฟ้า" ,
+            "การทาสีและซ่อมแซมพื้น" ,
+            "ซ่อมแซมทั่วไป" ,
+            "โครงสร้างและประตู-หน้าต่าง"
+
+
+        };
             var buildingNameCategories = new List<String>
         {
             "หอหญิง" ,
@@ -35,13 +47,15 @@ namespace ProjectSE.Controllers
         };
             ViewBag.selectedbuilding_Name = buildingNameCategories;
             ViewBag.selectedFloor = floorCategories;
-
+            ViewBag.selectedTypeRepair = TypeRepairCategories;
 
             var repair = new Repair
             {
+                selectedTypeRepair = TypeRepairCategories,
                 selectedbuilding_Name = buildingNameCategories,
-                selectedFloor = floorCategories
-        };
+                selectedFloor = floorCategories,
+                userNameR = userName
+            };
 
             return View(repair);
         }
@@ -64,6 +78,7 @@ namespace ProjectSE.Controllers
                     file.SaveAs(path);
                     model.picture = fileName;
                 }
+                var userName = Session["UserName"] as string;
                 var repair = new Repair
                 {
                     nameInform = model.nameInform,
@@ -77,15 +92,14 @@ namespace ProjectSE.Controllers
                     roomId = model.roomId,
                     building_name = model.building_name,
                     floor = model.floor,
-
-                    status = "รอดำเนินการ"
-
+                    status = "รอดำเนินการ",
+                    userNameR = userName
                 };
             
 
                 db.Repairs.Add(repair);
                 db.SaveChanges();
-                return View("ListRepair");
+                return View();
             }
             var buildingNameCategories = new List<String>
         {
@@ -102,13 +116,26 @@ namespace ProjectSE.Controllers
 
 
         };
+            var TypeRepairCategories = new List<String>
+        {
+            "น้ำปะปา" ,
+            "ไฟฟ้า" ,
+            "เฟอนิเจอร์" ,
+            "เครื่องใช้ไฟฟ้า" ,
+            "การทาสีและซ่อมแซมพื้น" ,
+            "ซ่อมแซมทั่วไป" ,
+            "โครงสร้างและประตู-หน้าต่าง"
 
+
+        };
 
 
 
 
             model.selectedbuilding_Name = buildingNameCategories;
             model.selectedFloor = floorCategories;
+            model.selectedTypeRepair = TypeRepairCategories;
+            ViewBag.selectedTypeRepair = TypeRepairCategories;
             ViewBag.selectedFloorbuilding_Name = buildingNameCategories;
             ViewBag.selectedFloor = floorCategories;
             return View(model);
@@ -117,8 +144,8 @@ namespace ProjectSE.Controllers
         }
        public ActionResult ListRepair()
         {
-
-            return View(db.Repairs.ToList());
+            var userName = Session["UserName"] as string;
+            return View(db.Repairs.ToList().Where(list => list.userNameR == userName));
         }
     }
 }

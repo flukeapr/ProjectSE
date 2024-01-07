@@ -37,19 +37,20 @@
             <PropertyRef Name="repair_Id" />
           </Key>
           <Property Name="repair_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nameInform" Type="varchar" MaxLength="50" />
-          <Property Name="topicRepair" Type="varchar" MaxLength="50" />
-          <Property Name="typeRepair" Type="varchar" MaxLength="50" />
-          <Property Name="details" Type="varchar" MaxLength="200" />
+          <Property Name="nameInform" Type="nvarchar" MaxLength="50" />
+          <Property Name="topicRepair" Type="nvarchar" MaxLength="50" />
+          <Property Name="typeRepair" Type="nvarchar" MaxLength="50" />
+          <Property Name="details" Type="nvarchar" MaxLength="200" />
           <Property Name="picture" Type="varchar" MaxLength="50" />
           <Property Name="phone" Type="nchar" MaxLength="10" />
           <Property Name="date" Type="date" />
           <Property Name="time" Type="time" Precision="7" />
           <Property Name="status" Type="nvarchar" MaxLength="50" />
           <Property Name="roomId" Type="int" />
-          <Property Name="building_name" Type="varchar" MaxLength="50" />
+          <Property Name="building_name" Type="nvarchar" MaxLength="50" />
           <Property Name="floor" Type="varchar" MaxLength="50" />
           <Property Name="technician_Id" Type="int" />
+          <Property Name="userNameR" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -147,19 +148,20 @@
             <PropertyRef Name="repair_Id" />
           </Key>
           <Property Name="repair_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nameInform" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="topicRepair" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="typeRepair" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="details" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="nameInform" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="topicRepair" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="typeRepair" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="details" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="picture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="date" Type="DateTime" Precision="0" />
           <Property Name="time" Type="Time" Precision="7" />
           <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="roomId" Type="Int32" />
-          <Property Name="building_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="building_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="floor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="technician_Id" Type="Int32" />
+          <Property Name="userNameR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -258,6 +260,7 @@
           <EntitySetMapping Name="Repairs">
             <EntityTypeMapping TypeName="DatabaseSEModel.Repair">
               <MappingFragment StoreEntitySet="Repair">
+                <ScalarProperty Name="userNameR" ColumnName="userNameR" />
                 <ScalarProperty Name="repair_Id" ColumnName="repair_Id" />
                 <ScalarProperty Name="nameInform" ColumnName="nameInform" />
                 <ScalarProperty Name="topicRepair" ColumnName="topicRepair" />
