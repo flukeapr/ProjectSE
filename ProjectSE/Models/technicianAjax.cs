@@ -12,11 +12,12 @@ namespace ProjectSE.Models
         {
         }
 
-        public virtual DbSet<Technician> Technicians { get; set; }
+        public virtual DbSet<Technician> Technician { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Technician>()
+                .HasKey(t => t.technician_Id)
                 .Property(e => e.phone)
                 .IsFixedLength();
 

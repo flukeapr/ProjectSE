@@ -1,0 +1,178 @@
+﻿@model IEnumerable<ProjectSE.Models.Renter>
+
+@{
+    ViewBag.Title = "RenterMem";
+    Layout = "~/Views/Shared/ViewAdmin_Layout.cshtml";
+}
+<html>
+<head>
+
+    <link href="~/Content/TechMember.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .topic {
+            display: flex;
+            align-items: center;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+            .topic h2 {
+                color: black;
+            }
+
+            .topic button {
+                margin-left: 5px;
+                width: 120px;
+                height: 30px;
+                border-radius: 10px;
+                background-color: #151D39;
+                padding-top: 3px;
+                margin-top: 5px;
+                display: flex;
+                font-size: 18px;
+                text-decoration: none;
+                border: none;
+            }
+
+        .thumbnail button {
+            background-color: #151D39;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            place-self: center;
+            border: none;
+            border-radius: 10px;
+            width: 120px;
+            height: 30px;
+        }
+
+        #btnEdit {
+            cursor: pointer;
+        }
+
+        .modal-header h2 {
+            display: flex;
+            justify-content: center;
+            color: black;
+        }
+
+        .modal-body {
+            height: 380px;
+            width: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-horizontal {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .col-md-10 {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .col-md-10 input {
+                width: 150px;
+                height: 50px;
+            }
+
+        label {
+            font-weight: bold;
+        }
+
+        .btn-back {
+            background-color: #68C4F5;
+            width: 180px;
+            height: 55px;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .btn-save {
+            background-color: #151D39;
+            width: 180px;
+            height: 55px;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .btn-delete {
+            background-color: #FF0000;
+            width: 180px;
+            height: 55px;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="topic">
+        <h2>รายการสมาชิกผู้พักอาศัย</h2>
+        <button type="submit">
+
+            <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAWhJREFUSEvFVYttAjEMtScpTNIyCTBJ6SRlE2AS2MTNO9mWk8vnhHoQCeVEHD8/+9lhWnnxyv5pCCAiX0T0SUTY8Xuk/ar7jZnx3VxNABHZENGvOu35AOCOmbHPVhVARL6T5UmtcfGcnEzRKjCYfCQWh3SGQCYbZv4pEWYAhfNT7ZI5UbB9CGZmnwHohbs6AO1ufgMQGF2UyTHeKwFgBGPQPZZ0EzvBf4lVj/mDmbd21w1FBPlEUTODCDIAiKJw9hHACtvMew8AgYT6uY8IgOjBAjmEamZrAYDV4srMuymdoVAoLmhuTdPmcNTtVpMgEk/zvwJomjIhRABTUFOeC1JkQnEVvrTI3ixRx0tlqumxLLhQIoOo42cazVToCspUpBEAxEZFU66VDjf2OMpqWGt5KxSMu8OuaK6qfQ0ALOKEtAfmpg8NHMEGj5CN62Yw73lwinmPaC1i5BrLWY1G+vBNHo2J0fnqAH/wo+UZ6yEoJAAAAABJRU5ErkJggg==" /></span>
+            <span>@Html.ActionLink("เพิ่มสมาชิก", "", null, new { style = "color: white; text-decoration: none;" })</span>
+        </button>
+
+
+    </div>
+
+    <div class="section">
+        @for (var i = 1; i <= Model.ToList().Count(); i++)
+        {
+            var indexItem = i - 1;
+            if (i == 1 || i % 4 == 1)
+            {
+                @:<div class="row">
+                }
+                <div class="col-md-3">
+                    <div class="thumbnail">
+                        <img class="img-responsive" style="max-width: 70%; "
+                             src=@Url.Content("~/Content/Renter/user-profile.png") /> 
+                        <div class="caption">
+                            <h5>ชื่อ: @Model.ElementAt(indexItem).name </h5>
+                            <h5>ช่างประเภท: @Model.ElementAt(indexItem).address </h5>
+                            <h5>เบอร์โทรศัพท์: @Model.ElementAt(indexItem).phone </h5>
+
+
+                        </div>
+                        <button type='button' id='btnEdit' onclick='return getTechnicainById("@Model.ElementAt(indexItem).renter_Id")'>
+
+                            <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMZJREFUSEu9leERwiAMhd+bxK7iJjpJ6yS6iW5iN4lyBx5iaIGA/U2/L8kLBzH442A+TAIROQE4kLzkCm0WePjVg5ecxCJ4ApiiylWJReDg90hyI3lOR1Ul8GOZARxJriISJA8N7mTFgmTmayxxMlPICTywPpKtVd/tIAN3THXmVRlY4ZsZ9IBnBb3gqqAnPCcQZSuKAtW26WeLRCQVNMNLOjDBq25y67uxe9FaweG//wuUkKuaeD88X0WXbFFfQRWt4PDwDF42Ll0ZYs9e+AAAAABJRU5ErkJggg==" /></span>
+                            <span style="color: white; text-decoration: none;">แก้ไข</span>
+                        </button>
+                        <button type="button" id="btnDelete" onclick='return confirmdeleteTechnicianById("@Model.ElementAt(indexItem).renter_Id")'>
+
+                            <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAALBJREFUSEvtldENgzAMRO82KZuUUTpJR2EUGIVNjIIUKU2I7SaN+kP+wNjvzlYwMfhwcH2oABF5AlgAPCpCdgAvkltNqAVYAQSIdnaSUytAQiLJSyEiosbPXE2aVcCKF4CY0Dv41PGHg+GAqNxjPXWpfd88vJ8CcoXWcwp3ObAKdrfoBhT36tuW3DMwf03dLbIILQDPosm5G8k5f1m7yWGLvR3bLNarrs7/Ln2r9574AdxozhlwDkgoAAAAAElFTkSuQmCC" /></span>
+                            <span style="color: white; text-decoration: none;">ลบสมาชิก</span>
+                        </button>
+                    </div>
+
+                </div>
+                if (i % 4 == 0)
+                {
+                @:</div>
+            }
+        }
+    </div>
+</body>
+</html>

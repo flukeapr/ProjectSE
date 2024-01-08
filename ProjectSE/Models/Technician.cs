@@ -11,10 +11,12 @@ namespace ProjectSE.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Technician
     {
-        public int technician_Id { get; set; }
+        
+       [Key] public int technician_Id { get; set; }
         public string technicianName { get; set; }
         public string typeRepair { get; set; }
         public string phone { get; set; }

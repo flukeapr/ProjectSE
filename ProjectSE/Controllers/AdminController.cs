@@ -21,21 +21,25 @@ namespace ProjectSE.Controllers
          }
         public ActionResult GetTechnician()
          { 
-         var tblTechnician = _dbContext.Technicians.ToList(); 
+         var tblTechnician = _dbContext.Technician.ToList(); 
          return Json(tblTechnician, JsonRequestBehavior.AllowGet); 
          }
 
         public ActionResult Get(int id)
-         { 
-         var technician = _dbContext.Technicians.ToList().Find(x => x.technician_Id == id); 
-         return Json(technician, JsonRequestBehavior.AllowGet); 
-         }
+        {
+           
+                var technician = _dbContext.Technician.ToList().Find(x => x.technician_Id == id);
+                return Json(technician, JsonRequestBehavior.AllowGet);
+            
+         
+            
+        }
         [HttpPost] 
          public ActionResult Create([Bind(Exclude = "ID")] Technician technician)
          { 
          if (ModelState.IsValid) 
          { 
-             _dbContext.Technicians.Add(technician); 
+             _dbContext.Technician.Add(technician); 
              _dbContext.SaveChanges(); 
          } 
          return Json(technician, JsonRequestBehavior.AllowGet); 
@@ -55,11 +59,11 @@ namespace ProjectSE.Controllers
          [HttpPost]
          public ActionResult Delete(int id)
          {
-            var technician = _dbContext.Technicians.ToList().Find(x => x.technician_Id == id);
+            var technician = _dbContext.Technician.ToList().Find(x => x.technician_Id == id);
 
              if (technician != null)
                  {
-                _dbContext.Technicians.Remove(technician);
+                _dbContext.Technician.Remove(technician);
                 _dbContext.SaveChanges();
                  }
              return Json(technician, JsonRequestBehavior.AllowGet);
@@ -73,6 +77,7 @@ namespace ProjectSE.Controllers
 
         public ActionResult TechMember()
         {
+           
             return View(db.Technicians.ToList());
         }
 
@@ -108,6 +113,34 @@ namespace ProjectSE.Controllers
         {
             return View(db.Repairs.ToList());
         }
+
+        public ActionResult RenterMem()
+        {
+            return View(db.Renters.ToList()) ;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
          

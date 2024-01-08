@@ -99,7 +99,7 @@ namespace ProjectSE.Controllers
 
                 db.Repairs.Add(repair);
                 db.SaveChanges();
-                return View();
+                return View("ListRepair", db.Repairs.ToList().Where(list => list.userNameR == userName));
             }
             var buildingNameCategories = new List<String>
         {

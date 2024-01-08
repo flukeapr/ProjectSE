@@ -1,5 +1,4 @@
-﻿@model IEnumerable<ProjectSE.Models.Technician>
-
+﻿﻿@model IEnumerable<ProjectSE.Models.Technician>
 @{
     ViewBag.Title = "TechMember";
     Layout = "~/Views/Shared/ViewAdmin_Layout.cshtml";
@@ -7,8 +6,9 @@
 <html>
 <head>
 
-    <link href="~/Content/TechMember.css" rel="stylesheet" />
+
     
+    <link href="~/Content/TechMember.css" rel="stylesheet" />
 
     <style>
         body {
@@ -52,39 +52,46 @@
             width: 120px;
             height: 30px;
         }
-        #btnEdit{
-            cursor:pointer;
+
+        #btnEdit {
+            cursor: pointer;
         }
-        .modal-header h2{
-            display:flex;
-            justify-content:center;
-            color:black;
+
+        .modal-header h2 {
+            display: flex;
+            justify-content: center;
+            color: black;
         }
+
         .modal-body {
             height: 380px;
             width: 500px;
             display: flex;
             justify-content: center;
-            
             align-items: center;
         }
-        .form-horizontal{
-            display:flex;
-            justify-content:center;
-            flex-direction:column;
-            align-items:center;
+
+        .form-horizontal {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
+
         .col-md-10 {
             display: flex;
             flex-direction: column;
         }
-        .col-md-10 input {
-            width:150px;
-            height:50px;
+
+            .col-md-10 input {
+                width: 150px;
+                height: 50px;
+            }
+
+        label {
+            font-weight: bold;
         }
-        label{
-            font-weight:bold;
-        }
+
         .btn-back {
             background-color: #68C4F5;
             width: 180px;
@@ -93,8 +100,9 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            font-size:18px;
+            font-size: 18px;
         }
+
         .btn-save {
             background-color: #151D39;
             width: 180px;
@@ -105,6 +113,7 @@
             cursor: pointer;
             font-size: 18px;
         }
+
         .btn-delete {
             background-color: #FF0000;
             width: 180px;
@@ -151,12 +160,12 @@
                         <button type='button' id='btnEdit' onclick='return getTechnicainById("@Model.ElementAt(indexItem).technician_Id")'>
 
                             <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMZJREFUSEu9leERwiAMhd+bxK7iJjpJ6yS6iW5iN4lyBx5iaIGA/U2/L8kLBzH442A+TAIROQE4kLzkCm0WePjVg5ecxCJ4ApiiylWJReDg90hyI3lOR1Ul8GOZARxJriISJA8N7mTFgmTmayxxMlPICTywPpKtVd/tIAN3THXmVRlY4ZsZ9IBnBb3gqqAnPCcQZSuKAtW26WeLRCQVNMNLOjDBq25y67uxe9FaweG//wuUkKuaeD88X0WXbFFfQRWt4PDwDF42Ll0ZYs9e+AAAAABJRU5ErkJggg==" /></span>
-                            <span style = "color: white; text-decoration: none;">แก้ไข</span>
+                            <span style="color: white; text-decoration: none;">แก้ไข</span>
                         </button>
                         <button type="button" id="btnDelete" onclick='return confirmdeleteTechnicianById("@Model.ElementAt(indexItem).technician_Id")'>
 
                             <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAALBJREFUSEvtldENgzAMRO82KZuUUTpJR2EUGIVNjIIUKU2I7SaN+kP+wNjvzlYwMfhwcH2oABF5AlgAPCpCdgAvkltNqAVYAQSIdnaSUytAQiLJSyEiosbPXE2aVcCKF4CY0Dv41PGHg+GAqNxjPXWpfd88vJ8CcoXWcwp3ObAKdrfoBhT36tuW3DMwf03dLbIILQDPosm5G8k5f1m7yWGLvR3bLNarrs7/Ln2r9574AdxozhlwDkgoAAAAAElFTkSuQmCC" /></span>
-                            <span style = "color: white; text-decoration: none;">ลบสมาชิก</span>
+                            <span style="color: white; text-decoration: none;">ลบสมาชิก</span>
                         </button>
                     </div>
 
@@ -222,61 +231,59 @@
             </div>
 
         </div>
-</div>
-        
-        <!--Comfirmation modal-->
-        <div id="confirmModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title"><label id="title"></label></h2>
+    </div>
 
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    <input type="hidden" class="form-control" id="ID" />
-                                    <label>ชื่อ</label>
-                                    <input type="text" id="Name" class="form-control" />
+    <!--Comfirmation modal-->
+    <div id="confirmModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><label id="title"></label></h2>
 
-                                </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="hidden" class="form-control" id="ID" />
+                                <label>ชื่อ</label>
+                                <input type="text" id="Name" class="form-control" />
 
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    <label>ช่างประเภท</label>
-                                    <input type="text" id="Type" class="form-control" />
 
-                                </div>
-
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    <input type="hidden" class="form-control" id="ID" />
-                                    <label>เบอร์โทรศัพท์</label>
-                                    <input type="text" id="Phone" class="form-control" />
-
-                                </div>
-
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    <input type="hidden" class="form-control" id="ID" />
-                                    <label>รูปโปรไฟล์</label>
-                                    <input type="text" id="Image" class="form-control" />
-
-                                </div>
-
-                            </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <label>ช่างประเภท</label>
+                                <input type="text" id="Type" class="form-control" />
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="btnOK" class="btn btn-primary">OK</button>
-                        <button type="button" id="btnCancel" class="btn btn-default" datadismiss="modal">Cancel</button>
+                            </div>
 
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="hidden" class="form-control" id="ID" />
+                                <label>เบอร์โทรศัพท์</label>
+                                <input type="text" id="Phone" class="form-control" />
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="hidden" class="form-control" id="ID" />
+                                <label>รูปโปรไฟล์</label>
+                                <input type="text" id="Image" class="form-control" />
+
+                            </div>
+
+                        </div>
                     </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnOK" class="btn btn-primary">OK</button>
+                    <button type="button" id="btnCancel" class="btn btn-default" datadismiss="modal">Cancel</button>
 
                 </div>
 
@@ -284,10 +291,12 @@
 
         </div>
 
+    </div>
+
 
 </body>
 </html>
 @section Scripts{
-    
+
     <script src="~/Scripts/library/technichian.js"></script>
 }
