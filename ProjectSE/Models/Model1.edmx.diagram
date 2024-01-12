@@ -13,6 +13,7 @@
         <EntityTypeShape EntityType="DatabaseSEModel.Technician" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
         <AssociationConnector Association="DatabaseSEModel.FK_Role_ToRole" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseSEModel.FK_roomId_ToRoomId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DatabaseSEModel.Estimate" Width="1.5" PointX="0.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

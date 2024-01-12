@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "ReportAdmin";
+    Layout = "~/Views/Shared/ViewAdmin_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "ReportAdmin";
+    Layout = "~/Views/Shared/ViewAdmin_Layout.cshtml";
+}
+
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.ajax({
+                type: 'GET',
+                url: '/Admin/GetReportJson',
+                success: function (chartsdata) {
+                    var Data = chartsdata.JSONList;
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Category');
+                    data.addColumn('number', 'Count');
+
+                    // นับจำนวนแต่ละประเภทของ typeRepair
+                    var typeRepairCounts = {};
+                    for (var i = 0; i < Data.length; i++) {
+                        var typeRepair = Data[i].typeRepair;
+                        typeRepairCounts[typeRepair] = (typeRepairCounts[typeRepair] || 0) + 1;
+                    }
+
+                    // เพิ่มข้อมูลเข้า DataTable
+                    for (var typeRepair in typeRepairCounts) {
+                        data.addRow([typeRepair, typeRepairCounts[typeRepair]]);
+                    }
+
+                    var options = {
+                        title: 'จำนวนการแจ้งซ่อมแต่ละประเภท',
+                        is3D: true,
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                    chart.draw(data, options);
+                }
+            });
+        }
+        
+    </script>
+    <style>
+        .topic-reportAdmin {
+            margin: 100px 0 0 0;
+            width: 150px;
+            height: 30px;
+            background-color: #151D39;
+            border-radius: 10px;
+        }
+
+        .topic-reportAdmin h3 {
+            display: flex;
+            justify-content: center;
+            color: white;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="topic-reportAdmin">
+        <h3>รายงาน</h3>
+    </div>
+    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
+
+

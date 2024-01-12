@@ -1,0 +1,175 @@
+﻿@model IEnumerable<ProjectSE.Models.Repair>
+
+@{
+    ViewBag.Title = "ListRepair";
+    Layout = "~/Views/Shared/ViewAdmin_Layout.cshtml";
+}
+<html>
+<head>
+    <style>
+        body {
+           
+        }
+        .topic-list-Ad {
+            margin:100px 0 0 0 ;
+            width: 200px;
+            height: 30px;
+            background-color: #151D39;
+            border-radius:10px;
+        }
+        .topic-list-Ad h3{
+            display:flex;
+            justify-content:center;
+            color:white;
+        }
+        .table {
+            margin:40px 0 0 0 ;
+            border:1px solid #000000;
+        }
+            .table th,
+            .table td {
+                border: 1px solid #000000;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        .status {
+            width: 100px;
+            height: 50px;
+            border-radius: 10px;
+        }
+
+            .status .text-status {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 50px;
+            }
+        
+    </style>
+</head>
+<body>
+    <div class="topic-list-Ad">
+        <h3>ประวัติรายการแจ้งซ่อม</h3>
+    </div>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nameInform)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.topicRepair)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.typeRepair)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.picture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.roomId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.building_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.floor)
+            </th>
+
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nameInform)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.topicRepair)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.typeRepair)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.details)
+                </td>
+                <td>
+                    <img src=@Url.Content("~/Content/Repair-image/"+(item.picture)) style="width: 100px;height: auto" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.time)
+                </td>
+                <td>
+                    <div class="status" style="background-color: @(GetStatusColor(item.status))">
+                        <label class="text-status">@Html.DisplayFor(modelItem => item.status)</label>
+
+                    </div>
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.roomId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.building_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.floor)
+                </td>
+
+
+            </tr>
+        }
+
+    </table>
+
+    @functions {
+        // ฟังก์ชั่นเพื่อรับสีของสถานะ
+        string GetStatusColor(string status)
+        {
+            switch (status)
+            {
+                case "รอดำเนินการ":
+                    return "rgb(104, 196, 245, 0.4)";
+                case "รับเรื่อง":
+                    return "#00FF00";
+                case "เดินทาง":
+                    return "#FFFF00";
+                case "ถึงแล้ว":
+                    return "#FFFF00";
+                case "สำเร็จ":
+                    return "#FFFF00";
+                case "ไม่สำเร็จ":
+                    return "#FFFF00";
+                case "ยกเลิกแล้ว":
+                    return "#FFFF00";
+                default:
+                    return "#FFFFFF"; // สีขาว (default)
+            }
+        }
+    }
+</body>
+</html>
+

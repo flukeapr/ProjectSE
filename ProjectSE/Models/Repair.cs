@@ -48,6 +48,7 @@ namespace ProjectSE.Models
         public Nullable<int> technician_Id { get; set; }
 
         public string userNameR { get; set; }
-
+        public string userNameT { get; set; }
+        public Nullable<int> estimate_Id { get; set; }
     }
 }

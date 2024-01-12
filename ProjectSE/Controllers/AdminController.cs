@@ -1,9 +1,11 @@
-﻿using ProjectSE.Models;
+﻿using Microsoft.Ajax.Utilities;
+using ProjectSE.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,61 +16,7 @@ namespace ProjectSE.Controllers
     {
         DatabaseSEEntities db = new DatabaseSEEntities();
 
-        technicianAjax _dbContext; 
-         public AdminController()
-         { 
-         _dbContext = new Models.technicianAjax(); 
-         }
-        public ActionResult GetTechnician()
-         { 
-         var tblTechnician = _dbContext.Technician.ToList(); 
-         return Json(tblTechnician, JsonRequestBehavior.AllowGet); 
-         }
-
-        public ActionResult Get(int id)
-        {
-           
-                var technician = _dbContext.Technician.ToList().Find(x => x.technician_Id == id);
-                return Json(technician, JsonRequestBehavior.AllowGet);
-            
-         
-            
-        }
-        [HttpPost] 
-         public ActionResult Create([Bind(Exclude = "ID")] Technician technician)
-         { 
-         if (ModelState.IsValid) 
-         { 
-             _dbContext.Technician.Add(technician); 
-             _dbContext.SaveChanges(); 
-         } 
-         return Json(technician, JsonRequestBehavior.AllowGet); 
-         }
-
-         [HttpPost]
-         public ActionResult Update(Technician technician)
-         {
-             if (ModelState.IsValid)
-                 {
-                _dbContext.Entry(technician).State = EntityState.Modified;
-                _dbContext.SaveChanges();
-                 }
-             return Json(technician, JsonRequestBehavior.AllowGet);
-             }
-
-         [HttpPost]
-         public ActionResult Delete(int id)
-         {
-            var technician = _dbContext.Technician.ToList().Find(x => x.technician_Id == id);
-
-             if (technician != null)
-                 {
-                _dbContext.Technician.Remove(technician);
-                _dbContext.SaveChanges();
-                 }
-             return Json(technician, JsonRequestBehavior.AllowGet);
-             }
-
+        
         // GET: Admin
         public ActionResult Index()
         {
@@ -109,7 +57,57 @@ namespace ProjectSE.Controllers
             }
             return View();
         }
-        public ActionResult ListRepair()
+
+        public ActionResult TechEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Technician technician = db.Technicians.Find(id);
+            if (technician == null)
+            {
+                return HttpNotFound();
+            }
+            return View(technician);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TechEdit( Technician technician)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(technician).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("TechMember", db.Technicians.ToList());
+            }
+            return View(technician);
+        }
+        public ActionResult TechDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Technician technician = db.Technicians.Find(id);
+            if (technician == null)
+            {
+                return HttpNotFound();
+            }
+            return View(technician);
+        }
+
+        // POST: Books/Delete/5
+        [HttpPost, ActionName("TechDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult TechDeleteConfirmed(int id)
+        {
+            Technician technician = db.Technicians.Find(id);
+            db.Technicians.Remove(technician);
+            db.SaveChanges();
+            return RedirectToAction("TechMember", db.Technicians.ToList());
+        }
+        public ActionResult ListRepairAdmin()
         {
             return View(db.Repairs.ToList());
         }
@@ -119,14 +117,67 @@ namespace ProjectSE.Controllers
             return View(db.Renters.ToList()) ;
         }
 
+        public ActionResult RenterEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Renter renter = db.Renters.Find(id);
+            if (renter == null)
+            {
+                return HttpNotFound();
+            }
+            return View(renter);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RenterEdit(Renter renter)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(renter).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("RenterMem", db.Renters.ToList());
+            }
+            return View(renter);
+        }
+        public ActionResult RenterDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Renter renter = db.Renters.Find(id);
+            if (renter == null)
+            {
+                return HttpNotFound();
+            }
+            return View(renter);
+        }
+
+        // POST: Books/Delete/5
+        [HttpPost, ActionName("RenterDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult RenterDeleteConfirmed(int id)
+        {
+            Renter renter = db.Renters.Find(id);
+            db.Renters.Remove(renter);
+            db.SaveChanges();
+            return RedirectToAction("RenterMem", db.Renters.ToList());
+        }
 
 
+        public ActionResult ReportAdmin()
+        {
+            return View();
+        }
 
-
-
-
-
-
+        public JsonResult GetReportJson()
+        {
+            var data = db.Repairs.ToList();
+            return Json(new { JSONList = data }, JsonRequestBehavior.AllowGet);
+        }
 
 
 

@@ -14,7 +14,6 @@
             align-items: center;
             justify-content: center;
             margin: 0;
-            
         }
 
         .row {
@@ -29,24 +28,24 @@
             margin-top: 100px;
             border-radius: 70px;
             margin-left: 20px;
-            background: gray;
+            border: 1px solid #000000;
             width: 1600px;
             height: 800px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             overflow: hidden;
         }
 
         .detail {
             display: flex;
-            align-content: space-evenly;
+            flex-direction: column;
         }
 
             .detail p {
                 align-content: space-between;
+                font-size: 24px;
             }
     </style>
 </head>
@@ -55,6 +54,9 @@
         <main class="main">
             <h1>หอพักจารุนันท์</h1>
             <div class="detail">
+                <div class="Image">
+                    <img src="~/Content/Logo/home.png" />
+                </div>
                 <p>
                     หอพักจารุนันท์<br />
                     486 หมู่ 5 ต.สุรนารี อ.เมือง<br />

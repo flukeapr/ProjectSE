@@ -157,12 +157,12 @@
 
 
                         </div>
-                        <button type='button' id='btnEdit' onclick='return getTechnicainById("@Model.ElementAt(indexItem).technician_Id")'>
+                        <button type='button' id='btnEdit' onclick='return tectDetailbyID("@Model.ElementAt(indexItem).technician_Id")'>
 
                             <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMZJREFUSEu9leERwiAMhd+bxK7iJjpJ6yS6iW5iN4lyBx5iaIGA/U2/L8kLBzH442A+TAIROQE4kLzkCm0WePjVg5ecxCJ4ApiiylWJReDg90hyI3lOR1Ul8GOZARxJriISJA8N7mTFgmTmayxxMlPICTywPpKtVd/tIAN3THXmVRlY4ZsZ9IBnBb3gqqAnPCcQZSuKAtW26WeLRCQVNMNLOjDBq25y67uxe9FaweG//wuUkKuaeD88X0WXbFFfQRWt4PDwDF42Ll0ZYs9e+AAAAABJRU5ErkJggg==" /></span>
                             <span style="color: white; text-decoration: none;">แก้ไข</span>
                         </button>
-                        <button type="button" id="btnDelete" onclick='return confirmdeleteTechnicianById("@Model.ElementAt(indexItem).technician_Id")'>
+                        <button type="button" id="btnDelete" onclick='return tectDeletebyID("@Model.ElementAt(indexItem).technician_Id")'>
 
                             <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAALBJREFUSEvtldENgzAMRO82KZuUUTpJR2EUGIVNjIIUKU2I7SaN+kP+wNjvzlYwMfhwcH2oABF5AlgAPCpCdgAvkltNqAVYAQSIdnaSUytAQiLJSyEiosbPXE2aVcCKF4CY0Dv41PGHg+GAqNxjPXWpfd88vJ8CcoXWcwp3ObAKdrfoBhT36tuW3DMwf03dLbIILQDPosm5G8k5f1m7yWGLvR3bLNarrs7/Ln2r9574AdxozhlwDkgoAAAAAElFTkSuQmCC" /></span>
                             <span style="color: white; text-decoration: none;">ลบสมาชิก</span>
@@ -292,11 +292,14 @@
         </div>
 
     </div>
-
+    <script>
+        function tectDetailbyID(techID) {
+            window.location.href = '@Url.Action("TechEdit", "Admin")/' + techID;
+        }
+        function tectDeletebyID(techID) {
+            window.location.href = '@Url.Action("TechDelete", "Admin")/' + techID;
+    }
+    </script>
 
 </body>
 </html>
-@section Scripts{
-
-    <script src="~/Scripts/library/technichian.js"></script>
-}

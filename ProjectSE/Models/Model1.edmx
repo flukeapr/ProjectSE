@@ -22,6 +22,15 @@
           <Property Name="building_name" Type="varchar" MaxLength="50" />
           <Property Name="floor" Type="int" />
         </EntityType>
+        <EntityType Name="Estimate">
+          <Key>
+            <PropertyRef Name="estimate_Id" />
+          </Key>
+          <Property Name="estimate_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+          <Property Name="des" Type="nvarchar" MaxLength="100" />
+          <Property Name="rate" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Renter">
           <Key>
             <PropertyRef Name="renter_Id" />
@@ -49,8 +58,9 @@
           <Property Name="roomId" Type="int" />
           <Property Name="building_name" Type="nvarchar" MaxLength="50" />
           <Property Name="floor" Type="varchar" MaxLength="50" />
-          <Property Name="technician_Id" Type="int" />
+          <Property Name="userNameT" Type="nvarchar" MaxLength="50" />
           <Property Name="userNameR" Type="nvarchar" MaxLength="50" />
+          <Property Name="estimate_Id" Type="int" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -96,6 +106,7 @@
         <EntityContainer Name="DatabaseSEModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Building" EntityType="Self.Building" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estimate" EntityType="Self.Estimate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Renter" EntityType="Self.Renter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Repair" EntityType="Self.Repair" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -160,8 +171,9 @@
           <Property Name="roomId" Type="Int32" />
           <Property Name="building_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="floor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="technician_Id" Type="Int32" />
           <Property Name="userNameR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userNameT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="estimate_Id" Type="Int32" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -220,7 +232,17 @@
             <End Role="Building" EntitySet="Buildings" />
             <End Role="Renter" EntitySet="Renters" />
           </AssociationSet>
+          <EntitySet Name="Estimates" EntityType="DatabaseSEModel.Estimate" />
         </EntityContainer>
+        <EntityType Name="Estimate">
+          <Key>
+            <PropertyRef Name="estimate_Id" />
+          </Key>
+          <Property Name="estimate_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="des" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="rate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -260,6 +282,8 @@
           <EntitySetMapping Name="Repairs">
             <EntityTypeMapping TypeName="DatabaseSEModel.Repair">
               <MappingFragment StoreEntitySet="Repair">
+                <ScalarProperty Name="estimate_Id" ColumnName="estimate_Id" />
+                <ScalarProperty Name="userNameT" ColumnName="userNameT" />
                 <ScalarProperty Name="userNameR" ColumnName="userNameR" />
                 <ScalarProperty Name="repair_Id" ColumnName="repair_Id" />
                 <ScalarProperty Name="nameInform" ColumnName="nameInform" />
@@ -274,7 +298,6 @@
                 <ScalarProperty Name="roomId" ColumnName="roomId" />
                 <ScalarProperty Name="building_name" ColumnName="building_name" />
                 <ScalarProperty Name="floor" ColumnName="floor" />
-                <ScalarProperty Name="technician_Id" ColumnName="technician_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -294,6 +317,16 @@
                 <ScalarProperty Name="technicianName" ColumnName="technicianName" />
                 <ScalarProperty Name="typeRepair" ColumnName="typeRepair" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estimates">
+            <EntityTypeMapping TypeName="DatabaseSEModel.Estimate">
+              <MappingFragment StoreEntitySet="Estimate">
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="des" ColumnName="des" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="estimate_Id" ColumnName="estimate_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
