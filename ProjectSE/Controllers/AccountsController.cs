@@ -31,9 +31,10 @@ namespace ProjectSE.Controllers
               var user = db.Accounts.FirstOrDefault(x => x.userName == model.userName && x.password == model.password );
                 if (user != null)
                 {
-                    Session["UserName"] = user.userName;
+                Session["UserNameT"] = user.userName;
+                Session["UserName"] = user.userName;
                 if (user.role == 1)
-                    {
+                  {
                     
                     return RedirectToAction("Index", "Admin");
                 }
@@ -44,7 +45,8 @@ namespace ProjectSE.Controllers
                 }
                 else if (user.role == 3)
                     {
-                        return RedirectToAction("Index", "Home");
+                    
+                    return RedirectToAction("Index", "Technician");
                     }
                 else
                 {

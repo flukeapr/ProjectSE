@@ -1,0 +1,273 @@
+﻿@model ProjectSE.Models.Repair
+@{
+    ViewBag.Title = "UpdateStatus";
+    Layout = "~/Views/Shared/View_Technician.cshtml";
+
+    
+}
+        
+<html>
+<head>
+    <script>
+        // ในส่วนนี้ให้ใส่โค้ด JavaScript ดังนี้
+        document.addEventListener("DOMContentLoaded", function () {
+            var status = '@Model.status'; // สมมติว่า Status เป็นสถานะปัจจุบัน
+
+            // ฟังก์ชันเพื่อรับสีของสถานะ
+            function GetStatusColor(status) {
+                switch (status) {
+                    case "รอดำเนินการ":
+                        return "rgb(36, 255, 0, 0.7)";
+                    case "รับเรื่อง":
+                        return "rgb(36, 255, 0, 0.7)";
+                    case "เดินทาง":
+                        return "rgb(36, 255, 0, 0.7)";
+                    case "ถึงแล้ว":
+                        return "rgb(36, 255, 0, 0.7)";
+                    case "สำเร็จ":
+                        return "rgb(36, 255, 0, 0.7)";
+                    case "ไม่สำเร็จ":
+                        return "rgb(255, 0, 0, 0.7)";
+                    case "ยกเลิกแล้ว":
+                        return "rgb(255, 0, 0, 0.7)";
+                    default:
+                        return "#FFFFFF"; // สีขาว (default)
+                }
+            }
+
+            var circle1 = document.querySelector('.circle1');
+            var circle2 = document.querySelector('.circle2');
+            var circle3 = document.querySelector('.circle3');
+            var circle4 = document.querySelector('.circle4');
+            var circle5 = document.querySelector('.circle5');
+
+            if (status === "รับเรื่อง") {
+                circle1.style.backgroundColor = GetStatusColor(status);
+            } else if (status === "เดินทาง") {
+                circle1.style.backgroundColor = GetStatusColor("รับเรื่อง");
+                circle2.style.backgroundColor = GetStatusColor(status);
+            } else if (status === "ถึงแล้ว") {
+                circle1.style.backgroundColor = GetStatusColor("รับเรื่อง");
+                circle2.style.backgroundColor = GetStatusColor("เดินทาง");
+                circle3.style.backgroundColor = GetStatusColor(status);
+            } else if (status === "สำเร็จ") {
+                circle1.style.backgroundColor = GetStatusColor("รับเรื่อง");
+                circle2.style.backgroundColor = GetStatusColor("เดินทาง");
+                circle3.style.backgroundColor = GetStatusColor("ถึงแล้ว");
+                circle4.style.backgroundColor = GetStatusColor(status);
+            }
+
+            var updateButton = document.getElementById('updateButton');
+
+            // กำหนดค่าในปุ่มตามสถานะถัดไป
+            switch (status) {
+                case "รอดำเนินการ":
+                    updateButton.value = "รับเรื่อง";
+                    break;
+                case "รับเรื่อง":
+                    updateButton.value = "เดินทาง";
+                    break;
+                case "เดินทาง":
+                    updateButton.value = "ถึงแล้ว";
+                    break;
+                case "ถึงแล้ว":
+                    updateButton.value = "สำเร็จ";
+                    break;
+                case "สำเร็จ":
+                    updateButton.value = "ไม่สำเร็จ";
+                    break;
+                case "ไม่สำเร็จ":
+                    updateButton.value = "ยกเลิกแล้ว";
+                    break;
+                case "ยกเลิกแล้ว":
+                    updateButton.value = "สถานะไม่ถูกต้อง";
+                    break;
+                default:
+                    updateButton.value = "สถานะไม่ถูกต้อง";
+                    break;
+            }
+        });
+    </script>
+
+
+    <style>
+        body {
+            height: 100vh;
+        }
+
+        .status {
+            height: auto;
+            margin-top: 50px;
+            display: grid;
+            grid-template: 200px 200px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle1, .circle2, .circle3 , .circle4 , .circle5 {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid #000000;
+        }
+
+        .Receive {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 50px;
+        }
+
+            .Receive h2 {
+                margin-left: 50px;
+                color: #000000;
+            }
+
+        .travel {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 50px;
+        }
+
+            .travel h2 {
+                margin-left: 50px;
+                color: #000000;
+            }
+
+        .arrived {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 50px;
+        }
+
+            .arrived h2 {
+                margin-left: 50px;
+                color: #000000;
+            }
+
+        .Complete {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 50px;
+        }
+
+            .Complete h2 {
+                margin-left: 50px;
+                color: #000000;
+            }
+
+        .UnComplete {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 50px;
+        }
+
+            .UnComplete h2 {
+                margin-left: 50px;
+                color: #000000;
+            }
+
+        .status-topic h1 {
+            display: flex;
+            justify-content: center;
+            margin-top: 100px;
+            color: black;
+        }
+
+        .line {
+            position: relative;
+            left: 24px;
+            height: 40px;
+        }
+
+        .btn-submit {
+            display: flex;
+            justify-content: center;
+            background-color: #151D39;
+            width: 150px;
+            height: 50px;
+            border: none;
+            border-radius: 20px;
+            font-size: 26px;
+            color: white;
+        }
+
+        .btn-cancel {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            background-color: #68C4F5;
+            width: 150px;
+            height: 50px;
+            border: none;
+            border-radius: 20px;
+            font-size: 26px;
+            color: white;
+        }
+
+        .button {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-evenly;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="status-topic">
+        <h1>อัพเดตสถานะ</h1>
+    </div>
+    <div class="status">
+        <div class="Receive">
+            <div class="circle1"></div><h2>รับเรื่องแล้ว</h2>
+        </div>
+        <img class="line" src="~/Content/Status/line.png" />
+        <div class="travel">
+            <div class="circle2"></div><h2>กำลังเดินทาง</h2>
+        </div>
+        <img class="line" src="~/Content/Status/line.png" />
+        <div class="arrived">
+            <div class="circle3"></div><h2>ถึงแล้ว</h2>
+        </div>
+        <img class="line" src="~/Content/Status/line.png" />
+        <div class="Complete">
+            <div class="circle4"></div><h2>สำเร็จ</h2>
+        </div>
+        <img class="line" src="~/Content/Status/line.png" />
+        <div class="UnComplete">
+            <div class="circle5"></div><h2>ไม่สำเร็จ</h2>
+        </div>
+
+
+
+    </div>
+
+    <div class="button">
+        <div class="cancel">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn-cancel">
+                    <span>@Html.ActionLink("ย้อนกลับ", "ListRepairTech", "Technician", new { style = "color: black; text-decoration: none;" })</span>
+                </button>
+            </div>
+        </div>
+        @using (Html.BeginForm())
+        {
+            <div hidden>
+                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.repair_Id, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="submit">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="updateButton" class="btn-submit" />
+                </div>
+            </div>
+
+        }
+    </div>
+
+</body>
+</html>
