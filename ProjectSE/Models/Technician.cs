@@ -26,6 +26,7 @@ namespace ProjectSE.Models
         public string phone { get; set; }
         [Display(Name = "รูปโปรไฟล์ :")]
         public string image { get; set; }
-
+        public Nullable<int> acc_id { get; set; }
+        public string userNameT { get; set; }
     }
 }

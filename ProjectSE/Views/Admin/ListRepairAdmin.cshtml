@@ -8,20 +8,22 @@
 <head>
     <style>
         body {
-           
+          
         }
-        .topic-list-Ad {
-            margin:100px 0 0 0 ;
+        .text {
+            margin: 100px 0 0 0;
             width: 200px;
             height: 30px;
             background-color: #151D39;
-            border-radius:10px;
+            border-radius: 10px;
         }
-        .topic-list-Ad h3{
-            display:flex;
-            justify-content:center;
-            color:white;
-        }
+            .text h3 {
+                margin-top:0px;
+                display: flex;
+                align-items:center;
+                justify-content: center;
+                color: white;
+            }
         .table {
             margin:40px 0 0 0 ;
             border:1px solid #000000;
@@ -44,14 +46,71 @@
                 align-items: center;
                 height: 50px;
             }
-        
+        .sort button{
+            width: 200px;
+            height: 30px;
+            background-color: #151D39;
+            border-radius: 10px;
+            border:none;
+            cursor:pointer;
+            color:white;
+            font-size:20px;
+            
+        }
+        .sort{
+            margin-top:100px;
+            display:flex;
+            align-items:center;
+        }
+        .topic-list-Ad  {
+           display:flex;
+           justify-content:space-between;
+        }
+        .sort .input{
+            width:200px;
+            height:20px;
+        }
+
+        .btn-search {
+            height: 30px;
+            width: 60px;
+            background-color: #68C4F5;
+            color:black;
+            font-size:20px;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+        .search{
+            margin-right:10px;
+        }
     </style>
 </head>
 <body>
+    
     <div class="topic-list-Ad">
-        <h3>ประวัติรายการแจ้งซ่อม</h3>
-    </div>
+        <div class="text">
+            <h3>ประวัติรายการแจ้งซ่อม</h3>
+        </div>
+        
+        <div class="sort">
+            <div class="search">
+                @using ((Html.BeginForm()))
+                {
+                    @Html.TextBox("SearchString", null, new { @class = "input" })
+                    <input type="submit" class="btn-search" value="ค้นหา" />
 
+
+                }
+            </div>
+           
+            <button onclick="location.href='@Url.Action("ListRepairAdmin", "Admin", new {sortList = ViewBag.listSortParm })'">เรียงตามวันที่</button>
+        </div>
+
+        </div>
+       
+    
+    
 
     <table class="table">
         <tr>

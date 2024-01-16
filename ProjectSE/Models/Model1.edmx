@@ -29,7 +29,7 @@
           <Property Name="estimate_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="status" Type="nvarchar" MaxLength="50" />
           <Property Name="des" Type="nvarchar" MaxLength="100" />
-          <Property Name="rate" Type="varchar" MaxLength="50" />
+          <Property Name="rate" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Renter">
           <Key>
@@ -40,6 +40,7 @@
           <Property Name="phone" Type="nchar" MaxLength="10" />
           <Property Name="address" Type="varchar" MaxLength="50" />
           <Property Name="room_Id" Type="int" Nullable="false" />
+          <Property Name="acc_id" Type="int" />
         </EntityType>
         <EntityType Name="Repair">
           <Key>
@@ -61,6 +62,7 @@
           <Property Name="userNameT" Type="nvarchar" MaxLength="50" />
           <Property Name="userNameR" Type="nvarchar" MaxLength="50" />
           <Property Name="estimate_Id" Type="int" />
+          <Property Name="tech_id" Type="int" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -78,6 +80,8 @@
           <Property Name="typeRepair" Type="nvarchar" MaxLength="50" />
           <Property Name="phone" Type="nchar" MaxLength="10" />
           <Property Name="image" Type="varchar" MaxLength="50" />
+          <Property Name="acc_id" Type="int" />
+          <Property Name="userNameT" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Role_ToRole">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
@@ -153,6 +157,7 @@
           <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="room_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Building" Relationship="Self.FK_roomId_ToRoomId" FromRole="Renter" ToRole="Building" />
+          <Property Name="acc_id" Type="Int32" />
         </EntityType>
         <EntityType Name="Repair">
           <Key>
@@ -174,6 +179,7 @@
           <Property Name="userNameR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="userNameT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="estimate_Id" Type="Int32" />
+          <Property Name="tech_id" Type="Int32" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -192,6 +198,8 @@
           <Property Name="typeRepair" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="acc_id" Type="Int32" />
+          <Property Name="userNameT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Role_ToRole">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
@@ -241,7 +249,7 @@
           <Property Name="estimate_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="des" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="rate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -271,6 +279,7 @@
           <EntitySetMapping Name="Renters">
             <EntityTypeMapping TypeName="DatabaseSEModel.Renter">
               <MappingFragment StoreEntitySet="Renter">
+                <ScalarProperty Name="acc_id" ColumnName="acc_id" />
                 <ScalarProperty Name="renter_Id" ColumnName="renter_Id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
@@ -282,6 +291,7 @@
           <EntitySetMapping Name="Repairs">
             <EntityTypeMapping TypeName="DatabaseSEModel.Repair">
               <MappingFragment StoreEntitySet="Repair">
+                <ScalarProperty Name="tech_id" ColumnName="tech_id" />
                 <ScalarProperty Name="estimate_Id" ColumnName="estimate_Id" />
                 <ScalarProperty Name="userNameT" ColumnName="userNameT" />
                 <ScalarProperty Name="userNameR" ColumnName="userNameR" />
@@ -312,6 +322,8 @@
           <EntitySetMapping Name="Technicians">
             <EntityTypeMapping TypeName="DatabaseSEModel.Technician">
               <MappingFragment StoreEntitySet="Technician">
+                <ScalarProperty Name="userNameT" ColumnName="userNameT" />
+                <ScalarProperty Name="acc_id" ColumnName="acc_id" />
                 <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="technician_Id" ColumnName="technician_Id" />
                 <ScalarProperty Name="technicianName" ColumnName="technicianName" />

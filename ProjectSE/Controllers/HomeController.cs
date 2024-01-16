@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -34,9 +35,9 @@ namespace ProjectSE.Controllers
             var buildingNameCategories = new List<String>
         {
             "หอหญิง" ,
-            "หอชาย" 
-           
-            
+            "หอชาย"
+
+
         };
             var floorCategories = new List<String>
         {
@@ -79,6 +80,16 @@ namespace ProjectSE.Controllers
                     model.picture = fileName;
                 }
                 var userName = Session["UserName"] as string;
+
+                var estimate = new Estimate
+                {
+                    status = "รอประเมิน",
+
+                };
+
+                db.Estimates.Add(estimate);
+                db.SaveChanges();
+
                 var repair = new Repair
                 {
                     nameInform = model.nameInform,
@@ -93,9 +104,10 @@ namespace ProjectSE.Controllers
                     building_name = model.building_name,
                     floor = model.floor,
                     status = "รอดำเนินการ",
-                    userNameR = userName
+                    userNameR = userName,
+                    estimate_Id = estimate.estimate_Id
                 };
-            
+
 
                 db.Repairs.Add(repair);
                 db.SaveChanges();
@@ -142,10 +154,58 @@ namespace ProjectSE.Controllers
 
 
         }
-       public ActionResult ListRepair()
+        public ActionResult ListRepair()
         {
             var userName = Session["UserName"] as string;
             return View(db.Repairs.ToList().Where(list => list.userNameR == userName));
+        }
+
+        public ActionResult Estimate()
+        {
+            var result = from r in db.Repairs
+                         join e in db.Estimates on r.estimate_Id equals e.estimate_Id
+                         select new ProjectSE.Models.EstimateViewModel
+                         {
+                             estimateId = e.estimate_Id,
+                             NameInform = r.nameInform,
+                             TypeRepair = r.typeRepair,
+                             Details = r.details,
+                             Picture = r.picture,
+                             Status = r.status,
+                             Date = r.date.HasValue ? r.date.Value : default(DateTime),
+                             Time = r.time.HasValue ? r.time.ToString() : string.Empty,
+                             EstimateStatus = e.status
+                         };
+
+            return View(result.ToList());
+        }
+
+
+        public ActionResult Estimation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Estimate estimate = db.Estimates.Find(id);
+
+            if (estimate == null)
+            {
+                return HttpNotFound();
+            }
+            var result = from r in db.Repairs
+                         join e in db.Estimates on r.estimate_Id equals e.estimate_Id join t in db.Technicians on r.tech_id equals t.technician_Id
+                         select new ProjectSE.Models.EstimationViewModel
+                         {
+                             Technician = t.technicianName,
+                             Phone = t.phone,
+                             Rate = e.rate
+                         };
+            
+
+
+            return View(result);
         }
     }
 }

@@ -1,0 +1,128 @@
+﻿@model List<ProjectSE.Models.EstimateViewModel>
+@{
+    ViewBag.Title = "Estimate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<html>
+<head>
+    <style>
+        .topic-list-estimate {
+            margin: 100px 0 0 0;
+            width: 200px;
+            height: 30px;
+            background-color: #151D39;
+            border-radius: 10px;
+        }
+
+            .topic-list-estimate h3 {
+                display: flex;
+                justify-content: center;
+                color: white;
+            }
+
+        .table {
+            margin: 40px 0 0 0;
+            border: 1px solid #000000;
+        }
+
+            .table th,
+            .table td {
+                border: 1px solid #000000;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+        .status {
+            width: 100px;
+            height: 50px;
+            border-radius: 10px;
+        }
+
+            .status .text-status {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 50px;
+            }
+    </style>
+</head>
+<body>
+    <div class="topic-list-estimate">
+        <h3>แบบประเมินการซ่อม</h3>
+    </div>
+    <table class="table">
+        <tr style="background-color:darkgray;">
+            <th>ชือผู้แจ้งซ่อม</th>
+            <th>ประเภทการบริการ</th>
+            <th>รายละเอียด</th>
+            <th>ภาพประกอบ</th>
+            <th>สถานะ</th>
+            <th>วันที่ต้องการซ่อม</th>
+            <th>เวลาที่ต้องการซ่อม</th>
+            <th>แบบประเมิน</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NameInform</td>
+                <td>@item.TypeRepair</td>
+                <td>@item.Details</td>
+                <td><img src=@Url.Content("~/Content/Repair-image/"+(item.Picture)) style="width: 100px;height: auto" /></td>
+                <td><div class="status" style="background-color: @(GetStatusColor(item.Status))"><label class="text-status">@Html.DisplayFor(modelItem => item.Status)</label></div></td>
+                <td>@item.Date</td>
+                <td>@item.Time</td>
+                <td>
+                    <div class="status" style="background-color: @(GetEstimateColor(item.EstimateStatus))" onclick="Estimation(@item.estimateId)"><label class="text-status">@Html.DisplayFor(modelItem => item.EstimateStatus)</label></div>
+
+                </td>
+            </tr>
+        }
+    </table>
+
+    @functions {
+        // ฟังก์ชั่นเพื่อรับสีของสถานะ
+        string GetStatusColor(string status)
+        {
+            switch (status)
+            {
+                case "รอดำเนินการ":
+                    return "rgb(104, 196, 245, 0.4)";
+                case "รับเรื่อง":
+                    return "rgb(255,135,0, 0.7)";
+                case "เดินทาง":
+                    return "rgb(250,255,0, 0.7)";
+                case "ถึงแล้ว":
+                    return "rgb(250,255,0, 0.7)";
+                case "สำเร็จ":
+                    return "rgb(36,255,0, 0.7)";
+                case "ไม่สำเร็จ":
+                    return "rgb(255,0,0, 0.7)";
+                case "ยกเลิกแล้ว":
+                    return "rgb(255,0,0, 0.7)";
+                default:
+                    return "#FFFFFF"; // สีขาว (default)
+            }
+        }
+        string GetEstimateColor(string status)
+        {
+            switch (status)
+            {
+                case "รอประเมิน":
+                    return "rgb(104, 196, 245, 0.4)";
+                case "ประเมินแล้ว":
+                    return "rgb(36,255,0, 0.7)";
+                default:
+                    return "#FFFFFF"; // สีขาว (default)
+            }
+        }
+    }
+
+    <script>
+    function Estimation(repairId) {
+        window.location.href = '@Url.Action("Estimation", "Home")/' + repairId;
+    }
+    </script>
+</body>
+</html>
+

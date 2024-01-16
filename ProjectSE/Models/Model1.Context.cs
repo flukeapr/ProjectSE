@@ -32,5 +32,7 @@ namespace ProjectSE.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Technician> Technicians { get; set; }
         public virtual DbSet<Estimate> Estimates { get; set; }
+
+        public System.Data.Entity.DbSet<ProjectSE.Models.EstimationViewModel> EstimationViewModels { get; set; }
     }
 }

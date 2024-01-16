@@ -29,10 +29,13 @@ namespace ProjectSE.Controllers
             
             
               var user = db.Accounts.FirstOrDefault(x => x.userName == model.userName && x.password == model.password );
+            
                 if (user != null)
                 {
                 Session["UserNameT"] = user.userName;
                 Session["UserName"] = user.userName;
+                var techId = db.Technicians.Where(t => t.acc_id == user.Id).Select(t => t.technician_Id).FirstOrDefault();
+                Session["UserId"] = techId;
                 if (user.role == 1)
                   {
                     

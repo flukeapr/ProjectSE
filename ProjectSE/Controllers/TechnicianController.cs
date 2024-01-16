@@ -46,6 +46,9 @@ namespace ProjectSE.Controllers
         public ActionResult UpdateStatus(int? id,string status)
         {
             var userName = Session["UserNameT"] as string;
+            var userIdObject = Session["UserId"] ;           
+            var TechId = (int)userIdObject;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -59,6 +62,7 @@ namespace ProjectSE.Controllers
                 {
                     repair.status = "รับเรื่อง";
                     repair.userNameT = userName;
+                    repair.tech_id = TechId;
                 }
                 else if (repair.status.Equals("รับเรื่อง"))
                 {

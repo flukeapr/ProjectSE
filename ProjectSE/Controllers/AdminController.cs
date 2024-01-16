@@ -107,9 +107,27 @@ namespace ProjectSE.Controllers
             db.SaveChanges();
             return RedirectToAction("TechMember", db.Technicians.ToList());
         }
-        public ActionResult ListRepairAdmin()
+        public ActionResult ListRepairAdmin(string sortList, string searchString)
         {
-            return View(db.Repairs.ToList());
+            ViewBag.listSortParm = String.IsNullOrEmpty(sortList) ? "Date_desc" : "";
+            var repair = from p in db.Repairs
+                         select p;
+
+            if (!String.IsNullOrEmpty(searchString)){
+                repair = repair.Where(x => x.nameInform.Contains(searchString) || x.status.Contains(searchString));
+            }
+
+
+            switch (sortList)
+            {
+                case "Date_desc":
+                    repair = repair.OrderByDescending(p => p.date);
+                    break;
+                default:
+                    repair = repair.OrderBy(p => p.repair_Id);
+                    break;
+            }
+            return View(repair);
         }
 
         public ActionResult RenterMem()
@@ -178,7 +196,11 @@ namespace ProjectSE.Controllers
             var data = db.Repairs.ToList();
             return Json(new { JSONList = data }, JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult GetEstimateJson()
+        {
+            var data = db.Estimates.ToList();
+            return Json(new { JSONList = data }, JsonRequestBehavior.AllowGet);
+        }
 
 
 

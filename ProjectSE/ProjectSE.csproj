@@ -143,6 +143,8 @@
     <Compile Include="Models\Estimate.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EstimateViewModel.cs" />
+    <Compile Include="Models\EstimationViewModel.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,6 +185,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Logo\home.png" />
+    <Content Include="Content\Logo\star.png" />
     <Content Include="Content\Renter\user-profile.png" />
     <Content Include="Content\Status\line.png" />
     <Content Include="Content\TechMember.css" />
@@ -271,6 +274,8 @@
     <Content Include="Views\Technician\Index.cshtml" />
     <Content Include="Views\Technician\ListRepairTech.cshtml" />
     <Content Include="Views\Technician\UpdateStatus.cshtml" />
+    <Content Include="Views\Home\Estimate.cshtml" />
+    <Content Include="Views\Home\Estimation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

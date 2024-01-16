@@ -1,0 +1,117 @@
+﻿@model IEnumerable<ProjectSE.Models.EstimationViewModel>
+
+@{
+    ViewBag.Title = "Estimation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<html>
+<head>
+    <style>
+        body{
+            height:100vh;
+
+        }
+        .es{
+            margin-top:100px;
+            
+        }
+        .topic-estimate h2{
+            display:flex;
+            justify-content:center;
+            color: black;
+        }
+        .tech h2,h3 {
+            color: black;
+            display: flex;
+            justify-content: center;
+        }
+        .tech{
+            display:flex;
+            justify-content:center;
+            flex-direction:column;
+        }
+        .btn-cancel {
+            width: 150px;
+            height: 50px;
+            border: none;
+            border-radius: 20px;
+            background-color: #68C4F5;
+            font-size: 26px;
+            color: black;
+        }
+        .btn-submit {
+            width: 150px;
+            height: 50px;
+            border: none;
+            border-radius: 20px;
+            background-color: #151D39;
+            font-size: 26px;
+            color: white;
+        }
+        .btn{
+            display:flex;
+            justify-content:space-around;
+        }
+        .star{
+            display:flex;
+            justify-content:center;
+           
+        }
+        .middle {
+            margin: 0 40px 0 40px;
+        }
+        .topic-estimate ,.tech , .star, .btn{
+            margin-bottom:60px;
+        }
+            .star img:hover {
+                color: yellow;
+                display: inline-block; 
+                background-clip: content-box;
+                
+            }
+    </style>
+</head>
+<body>
+    <div class="es">
+        <div class="topic-estimate">
+            <h2>ประเมินความพึงพอใจ</h2>
+        </div>
+        <div class="tech">
+            @foreach (var item in Model)
+            {
+                <h2>ชื่อช่าง :@Html.DisplayFor(modelItem => item.Technician)</h2>
+                <h3>เบอร์ :@Html.DisplayFor(modelItem => item.Phone)</h3>
+
+            }
+
+
+        </div>
+        <div class="star">
+            <div class="little">
+                <img src="~/Content/Logo/star.png" />
+                <h4>ปรับปรุง</h4>
+            </div>
+            <div class="middle">
+                <img src="~/Content/Logo/star.png" />
+                <h4>ปานกลาง</h4>
+            </div>
+            <div class="good">
+                <img src="~/Content/Logo/star.png" />
+                <h4>ดีมาก</h4>
+            </div>
+        </div>
+        <div class="btn">
+            <div class="cancel">
+                <button class="btn-cancel" >ย้อนกลับ</button>
+            </div>
+            <div class="submit">
+                <button class="btn-submit" >ยืนยัน</button>
+            </div>
+           
+            
+        </div>
+
+    </div>
+</body>
+</html>
+
