@@ -15,7 +15,6 @@ namespace ProjectSE.Models
 
     public partial class Renter
     {
-
         public int renter_Id { get; set; }
         [Display(Name = "ชื่อ :")]
         public string name { get; set; }

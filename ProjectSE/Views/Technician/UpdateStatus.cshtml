@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "UpdateStatus";
     Layout = "~/Views/Shared/View_Technician.cshtml";
+    ViewBag.HideElement = true;
 
-    
 }
         
 <html>
@@ -55,6 +55,12 @@
                 circle2.style.backgroundColor = GetStatusColor("เดินทาง");
                 circle3.style.backgroundColor = GetStatusColor("ถึงแล้ว");
                 circle4.style.backgroundColor = GetStatusColor(status);
+            } else if (status === "ไม่สำเร็จ") {
+                circle1.style.backgroundColor = GetStatusColor("ไม่สำเร็จ");
+                circle2.style.backgroundColor = GetStatusColor("ไม่สำเร็จ");
+                circle3.style.backgroundColor = GetStatusColor("ไม่สำเร็จ");
+                circle4.style.backgroundColor = GetStatusColor("ไม่สำเร็จ");
+                circle5.style.backgroundColor = GetStatusColor(status);
             }
 
             var updateButton = document.getElementById('updateButton');
@@ -74,18 +80,87 @@
                     updateButton.value = "สำเร็จ";
                     break;
                 case "สำเร็จ":
-                    updateButton.value = "ไม่สำเร็จ";
+                    updateButton.value = "ยกเลิก";
                     break;
-                case "ไม่สำเร็จ":
-                    updateButton.value = "ยกเลิกแล้ว";
-                    break;
-                case "ยกเลิกแล้ว":
-                    updateButton.value = "สถานะไม่ถูกต้อง";
-                    break;
+               
                 default:
-                    updateButton.value = "สถานะไม่ถูกต้อง";
+                   
                     break;
             }
+
+            function toggleUIVisibility() {
+                var unsubmit = document.querySelector('.Unsubmit');
+                var more = document.querySelector('.des');
+                var submit = document.querySelector('.submit');
+                var lineUN = document.querySelector('#lineUn');
+                var circleUN = document.querySelector('.UnComplete');
+                if (status === "ถึงแล้ว") {
+                    unsubmit.style.display = 'flex';
+                    more.style.display = 'flex';
+                    submit.style.display = 'flex';
+                } else if (status === "สำเร็จ") {
+                    submit.style.display = 'none';
+                    unsubmit.style.display = 'none';
+                    more.style.display = 'none';
+                    lineUN.style.display = 'none';
+                    circleUN.style.display = 'none';
+                }
+                else if (status === "ไม่สำเร็จ") {
+                    submit.style.display = 'none';
+                    unsubmit.style.display = 'none';
+                    more.style.display = 'none';
+                    
+                }
+
+
+                else {
+                    unsubmit.style.display = 'none';
+                    more.style.display = 'none';
+                    submit.style.display = 'flex';
+                }
+            }
+
+            // ในบรรทัดสุดท้ายของ script
+            toggleUIVisibility();
+
+
+       var unsubmitButton = document.querySelector('.btn-Unsubmit');
+    var submitButton = document.getElementById('updateButton');  // แก้ไขตรงนี้
+
+        if (status === "ถึงแล้ว") {
+           
+            unsubmitButton.addEventListener('click', function () {
+                updateStatus('ไม่สำเร็จ');
+                window.location.href = '@Url.Action("ListRepairTech", "Technician")';
+            });
+            submitButton.addEventListener('click', function () {
+                updateStatus('สำเร็จ');
+                window.location.href = '@Url.Action("ListRepairTech", "Technician")';
+            });
+        } 
+
+    function updateStatus(status) {
+        var url = '@Url.Action("UpdateStatus", "Technician")';
+        var data = { id: @Model.repair_Id, status: status, description: document.querySelector('textarea[name="description"]').value, file: document.querySelector('input[name="file"]').files[0] };
+
+        var formData = new FormData();
+        formData.append("id", data.id);
+        formData.append("status", data.status);
+        formData.append("description", data.description);
+        formData.append("file", data.file);
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
         });
     </script>
 
@@ -214,6 +289,34 @@
             display: flex;
             justify-content: space-evenly;
         }
+        .btn-Unsubmit {
+            display: flex;
+            justify-content: center;
+            background-color: #FF0000;
+            width: 150px;
+            height: 50px;
+            border: none;
+            border-radius: 20px;
+            font-size: 26px;
+            color: white;
+        }
+
+        .more-detail{
+            display:flex;
+            justify-content:center;
+            margin:20px 0 20px 0;
+        }
+        .des {
+            display: flex;
+            flex-direction: column;
+        }
+        .text-des{
+            height:60px;
+            margin:10px 0 10px 0;
+        }
+        .img-des{
+            border:1px solid #000000;
+        }
     </style>
 </head>
 <body>
@@ -237,7 +340,7 @@
         <div class="Complete">
             <div class="circle4"></div><h2>สำเร็จ</h2>
         </div>
-        <img class="line" src="~/Content/Status/line.png" />
+        <img class="line" src="~/Content/Status/line.png" id="lineUn" />
         <div class="UnComplete">
             <div class="circle5"></div><h2>ไม่สำเร็จ</h2>
         </div>
@@ -245,6 +348,15 @@
 
 
     </div>
+
+    <div class="more-detail" >
+        <div class="des" >
+            <textarea name="description" class="text-des" ></textarea>
+            <input type="file" name="file" class="img-des" />
+        </div>
+    </div>
+
+
 
     <div class="button">
         <div class="cancel">
@@ -254,13 +366,24 @@
                 </button>
             </div>
         </div>
+
+
+        <div class="Unsubmit" >
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="ไม่สำเร็จ" class="btn-Unsubmit" />
+            </div>
+        </div>
+
+
+
+
         @using (Html.BeginForm())
         {
             <div hidden>
                 @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.EditorFor(model => model.repair_Id, new { htmlAttributes = new { @class = "form-control" } })
             </div>
-            <div class="submit">
+            <div class="submit" >
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" id="updateButton" class="btn-submit" />
                 </div>
@@ -268,6 +391,7 @@
 
         }
     </div>
+   
 
 </body>
 </html>

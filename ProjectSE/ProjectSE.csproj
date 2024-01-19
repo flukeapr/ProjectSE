@@ -276,6 +276,8 @@
     <Content Include="Views\Technician\UpdateStatus.cshtml" />
     <Content Include="Views\Home\Estimate.cshtml" />
     <Content Include="Views\Home\Estimation.cshtml" />
+    <Content Include="Views\Technician\AllRepairTech.cshtml" />
+    <Content Include="Views\Technician\ReportTech.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -295,6 +297,7 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\DesT-Pic\" />
     <Folder Include="Content\Repair-image\" />
     <Folder Include="Content\technician\" />
   </ItemGroup>

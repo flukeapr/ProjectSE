@@ -15,7 +15,6 @@ namespace ProjectSE.Models
 
     public partial class Repair
     {
-
         public int repair_Id { get; set; }
 
         [Display(Name = "ชือผู้แจ้งซ่อม")]
@@ -46,10 +45,13 @@ namespace ProjectSE.Models
         public string building_name { get; set; }
         [Display(Name = "ชั้น")]
         public string floor { get; set; }
+        public Nullable<int> technician_Id { get; set; }
 
         public string userNameR { get; set; }
         public string userNameT { get; set; }
         public Nullable<int> estimate_Id { get; set; }
         public Nullable<int> tech_id { get; set; }
+        public string desT_picture { get; set; }
+        public string desT { get; set; }
     }
 }

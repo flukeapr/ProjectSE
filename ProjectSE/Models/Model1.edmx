@@ -63,6 +63,8 @@
           <Property Name="userNameR" Type="nvarchar" MaxLength="50" />
           <Property Name="estimate_Id" Type="int" />
           <Property Name="tech_id" Type="int" />
+          <Property Name="desT_picture" Type="varchar" MaxLength="50" />
+          <Property Name="desT" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -180,6 +182,8 @@
           <Property Name="userNameT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="estimate_Id" Type="Int32" />
           <Property Name="tech_id" Type="Int32" />
+          <Property Name="desT_picture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="desT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -291,6 +295,8 @@
           <EntitySetMapping Name="Repairs">
             <EntityTypeMapping TypeName="DatabaseSEModel.Repair">
               <MappingFragment StoreEntitySet="Repair">
+                <ScalarProperty Name="desT" ColumnName="desT" />
+                <ScalarProperty Name="desT_picture" ColumnName="desT_picture" />
                 <ScalarProperty Name="tech_id" ColumnName="tech_id" />
                 <ScalarProperty Name="estimate_Id" ColumnName="estimate_Id" />
                 <ScalarProperty Name="userNameT" ColumnName="userNameT" />

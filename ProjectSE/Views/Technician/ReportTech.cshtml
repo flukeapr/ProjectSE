@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ProjectSE.Models.Repair>
+@{
+    ViewBag.Title = "ReportTech";
+    Layout = "~/Views/Shared/View_Technician.cshtml";
+    var userName = ViewBag.UserName as string;
+}
+
+<html>
+<head>
+    <style>
+        body{
+            
+        }
+        
+        .text {
+            margin: 100px 0 0 0;
+            width: 200px;
+            height: 30px;
+            background-color: #151D39;
+            border-radius: 10px;
+        }
+
+            .text h3 {
+                margin-top: 0px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+
+        .table {
+            margin: 40px 0 40px 40px;
+            border: 1px solid #000000;
+        }
+
+            .table th,
+            .table td {
+                border: 1px solid #000000;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .table h2{
+                color:black;
+            }
+            .table td{
+                height:40px;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="topic-report-Tech">
+        <div class="text">
+            <h3>รายงานการแจ้งซ่อม</h3>
+        </div>
+    </div>
+    <table class="table">
+        <tr style="background-color:rgb(104,196,245, 0.7);">
+            <th style="width:400px;"><h2>รายการ</h2></th>
+            <th>จำนวน</th>
+            <th>งาน</th>
+        </tr>
+
+
+        <tr>
+            <td>จำนวนงานที่ได้รับมอบหมาย </td>
+            <td>@Model.Count(x => x.userNameT == userName)</td>
+            <td>งาน</td>
+        </tr>
+
+        <tr>
+            <td>จำนวนงานที่ทำสำเร็จ </td>
+            <td>@Model.Count(x => x.status == "สำเร็จ")</td>
+            <td>งาน</td>
+        </tr>
+        <tr>
+            <td>จำนวนงานที่ทำไม่สำเร็จ </td>
+            <td>@Model.Count(x => x.status == "ไม่สำเร็จ")</td>
+            <td>งาน</td>
+        </tr>
+
+    </table>
+</body>
+</html>

@@ -156,50 +156,50 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nameInform)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.topicRepair)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.typeRepair)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.details)
-                </td>
-                <td>
-                    <img src=@Url.Content("~/Content/Repair-image/"+(item.picture)) style="width: 100px;height: auto" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.time)
-                </td>
-                <td>
-                    <div class="status" style="background-color: @(GetStatusColor(item.status))">
-                        <label class="text-status">@Html.DisplayFor(modelItem => item.status)</label>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nameInform)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.topicRepair)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.typeRepair)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.details)
+        </td>
+        <td>
+            <img src=@Url.Content("~/Content/Repair-image/"+(item.picture)) style="width: 100px;height: auto" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time)
+        </td>
+        <td>
+            <div class="status" style="background-color: @(GetStatusColor(item.status))">
+                <label class="text-status">@Html.DisplayFor(modelItem => item.status)</label>
 
-                    </div>
+            </div>
 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.roomId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.building_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.floor)
-                </td>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.roomId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.building_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.floor)
+        </td>
+        
 
-
-            </tr>
+    </tr>
         }
 
     </table>

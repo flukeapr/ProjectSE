@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -43,7 +44,7 @@ namespace ProjectSE.Controllers
             return View(repair);
         }
         [HttpPost]
-        public ActionResult UpdateStatus(int? id,string status)
+        public ActionResult UpdateStatus(int? id, string status, string description, HttpPostedFileBase file)
         {
             var userName = Session["UserNameT"] as string;
             var userIdObject = Session["UserId"] ;           
@@ -58,26 +59,34 @@ namespace ProjectSE.Controllers
             if (ModelState.IsValid)
             {
 
-                if (repair.status.Equals("รอดำเนินการ"))
+                repair.desT = description;
+                if (file != null && file.ContentLength > 0)
                 {
-                    repair.status = "รับเรื่อง";
-                    repair.userNameT = userName;
-                    repair.tech_id = TechId;
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Content/DesT-Pic"), fileName);
+                    file.SaveAs(path);
+                    repair.desT_picture = fileName;
                 }
-                else if (repair.status.Equals("รับเรื่อง"))
-                {
-                    repair.status = "เดินทาง";
 
-                }
-                else if (repair.status.Equals("เดินทาง"))
+                switch (repair.status)
                 {
-                    repair.status = "ถึงแล้ว";
-
-                }
-                else if (repair.status.Equals("ถึงแล้ว"))
-                {
-                    repair.status = "สำเร็จ";
-
+                    case "รอดำเนินการ":
+                        repair.status = "รับเรื่อง";
+                        repair.userNameT = userName;
+                        repair.tech_id = TechId;
+                        break;
+                    case "รับเรื่อง":
+                        repair.status = "เดินทาง";
+                        break;
+                    case "เดินทาง":
+                        repair.status = "ถึงแล้ว";
+                        break;
+                    case "ถึงแล้ว":
+                        repair.status = status;
+                        break;
+                    default:
+                        // สถานะอื่น ๆ ไม่ต้องทำอะไร
+                        break;
                 }
                 db.SaveChanges();
                 db.Entry(repair).Property(r => r.status).IsModified = true;
@@ -93,11 +102,17 @@ namespace ProjectSE.Controllers
             return View(repair);
         }
        
-        public ActionResult AllRepair()
+        public ActionResult AllRepairTech()
         {
-            return View();
+            var userName = Session["UserNameT"] as string;
+            return View(db.Repairs.ToList().Where(x=>x.userNameT == userName ));
         }
-
+        public ActionResult ReportTech()
+        {
+            var userName = Session["UserNameT"] as string;
+            ViewBag.UserName = userName;
+            return View(db.Repairs.ToList().Where(x => x.userNameT == userName));
+        }
 
     }
 }

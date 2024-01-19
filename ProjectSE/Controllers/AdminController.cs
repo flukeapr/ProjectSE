@@ -121,7 +121,7 @@ namespace ProjectSE.Controllers
             switch (sortList)
             {
                 case "Date_desc":
-                    repair = repair.OrderByDescending(p => p.date);
+                    repair = repair.OrderByDescending(p => p.status);
                     break;
                 default:
                     repair = repair.OrderBy(p => p.repair_Id);

@@ -6,30 +6,34 @@
 }
 <html>
 <head>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <style>
-        body{
-            height:100vh;
+        body {
+            height: 100vh;
+        }
 
+        .es {
+            margin-top: 100px;
         }
-        .es{
-            margin-top:100px;
-            
-        }
-        .topic-estimate h2{
-            display:flex;
-            justify-content:center;
+
+        .topic-estimate h2 {
+            display: flex;
+            justify-content: center;
             color: black;
         }
-        .tech h2,h3 {
+
+        .tech h2, h3 {
             color: black;
             display: flex;
             justify-content: center;
         }
-        .tech{
-            display:flex;
-            justify-content:center;
-            flex-direction:column;
+
+        .tech {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
         }
+
         .btn-cancel {
             width: 150px;
             height: 50px;
@@ -39,6 +43,7 @@
             font-size: 26px;
             color: black;
         }
+
         .btn-submit {
             width: 150px;
             height: 50px;
@@ -48,28 +53,30 @@
             font-size: 26px;
             color: white;
         }
-        .btn{
-            display:flex;
-            justify-content:space-around;
+
+        .btn {
+            display: flex;
+            justify-content: space-around;
         }
-        .star{
-            display:flex;
-            justify-content:center;
-           
+
+        .star {
+            display: flex;
+            justify-content: center;
         }
+
         .middle {
             margin: 0 40px 0 40px;
         }
-        .topic-estimate ,.tech , .star, .btn{
-            margin-bottom:60px;
+
+        .topic-estimate, .tech, .star, .btn {
+            margin-bottom: 60px;
         }
-            .star img:hover {
-                color: yellow;
-                display: inline-block; 
-                background-clip: content-box;
-                
+
+            .star svg:hover {
+                fill:yellow;
             }
     </style>
+
 </head>
 <body>
     <div class="es">
@@ -88,7 +95,7 @@
         </div>
         <div class="star">
             <div class="little">
-                <img src="~/Content/Logo/star.png" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" ><path d="m6.516 14.323-1.49 6.452a.998.998 0 0 0 1.529 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082a1 1 0 0 0-.59-1.74l-5.701-.454-2.467-5.461a.998.998 0 0 0-1.822 0L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.214 4.107zm2.853-4.326a.998.998 0 0 0 .832-.586L12 5.43l1.799 3.981a.998.998 0 0 0 .832.586l3.972.315-3.271 2.944c-.284.256-.397.65-.293 1.018l1.253 4.385-3.736-2.491a.995.995 0 0 0-1.109 0l-3.904 2.603 1.05-4.546a1 1 0 0 0-.276-.94l-3.038-2.962 4.09-.326z"></path></svg>
                 <h4>ปรับปรุง</h4>
             </div>
             <div class="middle">
@@ -112,6 +119,7 @@
         </div>
 
     </div>
+
 </body>
 </html>
 
