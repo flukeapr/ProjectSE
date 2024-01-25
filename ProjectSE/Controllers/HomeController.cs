@@ -83,7 +83,8 @@ namespace ProjectSE.Controllers
 
                 var estimate = new Estimate
                 {
-                    status = "รอประเมิน",
+                    rate="ยังไม่ประเมิน",
+                    status = "รอประเมิน"
 
                 };
 
@@ -163,7 +164,7 @@ namespace ProjectSE.Controllers
         public ActionResult Estimate()
         {
             var result = from r in db.Repairs
-                         join e in db.Estimates on r.estimate_Id equals e.estimate_Id
+                         join e in db.Estimates on r.estimate_Id equals e.estimate_Id 
                          select new ProjectSE.Models.EstimateViewModel
                          {
                              estimateId = e.estimate_Id,
@@ -194,18 +195,73 @@ namespace ProjectSE.Controllers
             {
                 return HttpNotFound();
             }
+            
             var result = from r in db.Repairs
-                         join e in db.Estimates on r.estimate_Id equals e.estimate_Id join t in db.Technicians on r.tech_id equals t.technician_Id
-                         select new ProjectSE.Models.EstimationViewModel
+                         join e in db.Estimates on r.estimate_Id equals e.estimate_Id 
+                         join t in db.Technicians on r.tech_id equals t.technician_Id
+                         where r.estimate_Id == id
+                         select new 
                          {
+                             EstimateId = e.estimate_Id,
                              Technician = t.technicianName,
                              Phone = t.phone,
-                             Rate = e.rate
+                             Rate = e.rate,
+                             EStatus = e.status,
+                             EDes = e.des
                          };
-            
+            var estimationData = result.FirstOrDefault();
+            if (estimationData == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.EstimateId = estimationData.EstimateId;
+            ViewBag.Technician = estimationData.Technician;
+            ViewBag.Phone = estimationData.Phone;
+            ViewBag.EDes = estimationData.EDes;
+            ViewBag.Rate = estimationData.Rate;
+            ViewBag.Estatus = estimationData.EStatus;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Estimation(int id, string desText, string rating)
+        {
+            if (!string.IsNullOrEmpty(desText) && !string.IsNullOrEmpty(rating))
+            {
+                try
+                {
+                    var existingEstimate = db.Estimates.Find(id);
+                    if (existingEstimate != null)
+                    {
+                        existingEstimate.des = desText;
+                        existingEstimate.rate = rating;
+                        existingEstimate.status = "ประเมินแล้ว";
 
+                        db.SaveChanges();
 
-            return View(result);
+                        ViewBag.SuccessMessage = "บันทึกข้อมูลการประเมินสำเร็จ";
+                        return RedirectToAction("Estimate", "Home");
+
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "ไม่พบ รายงาน ที่ต้องการประเมิน";
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    // กรณีเกิดข้อผิดพลาดในการบันทึกข้อมูล
+                    ViewBag.ErrorMessage = "เกิดข้อผิดพลาดในการบันทึกข้อมูล: " + ex.Message;
+                }
+            }
+            else
+            {
+                // กรณีข้อมูลที่รับมาไม่ถูกต้อง
+                ViewBag.ErrorMessage = "กรุณากรอกข้อมูลให้ครบถ้วน";
+            }
+
+            // หากเกิดข้อผิดพลาดหรือข้อมูลไม่ถูกต้อง ให้กลับไปที่หน้าเดิม
+            return View();
         }
     }
 }

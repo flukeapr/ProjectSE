@@ -9,13 +9,16 @@ namespace ProjectSE.Models
     public class EstimationViewModel
     {
         [Key]
-        public int EstimateId { get; set; }
+        public int? EstimateId { get; set; }
         public string Technician { get; set; }
 
         public string Phone { get; set; }
 
         public string Rate { get; set; }
 
-       
+        public string EStatus { get; set; }
+
+        public string EDes { get; set; }
+
     }
 }

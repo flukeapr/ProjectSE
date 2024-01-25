@@ -67,6 +67,12 @@ namespace ProjectSE.Controllers
             
             return View("Login");
         }
+
+        public ActionResult register()
+        {
+
+            return View();
+        }
     }
     }
 

@@ -173,6 +173,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\technicianAjax.cs" />
+    <Compile Include="Models\TechViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +279,7 @@
     <Content Include="Views\Home\Estimation.cshtml" />
     <Content Include="Views\Technician\AllRepairTech.cshtml" />
     <Content Include="Views\Technician\ReportTech.cshtml" />
+    <Content Include="Views\Accounts\register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

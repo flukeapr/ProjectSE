@@ -36,10 +36,26 @@ namespace ProjectSE.Controllers
 
 
         [HttpPost]
-        public ActionResult AddTech(Technician technichian)
+        public ActionResult AddTech(TechViewModel technichian)
         {
             if (ModelState.IsValid)
             {
+                var acc = new Account()
+                {
+                    userName = technichian.account.userName,
+                    password = technichian.account.password,
+                    role = 3
+                };
+                db.Accounts.Add(acc);
+                db.SaveChanges();
+
+                var tech = new Technician()
+                {
+                    technicianName = technichian.technician.technicianName,
+                    typeRepair = technichian.technician.typeRepair,
+                    phone = technichian.technician.phone,
+                    acc_id = acc.Id,
+                };
                 var file = Request.Files[0];
 
                 if (file != null && file.ContentLength > 0)
@@ -47,11 +63,11 @@ namespace ProjectSE.Controllers
                     var fileName = Path.GetFileName(file.FileName);
                     var path = Path.Combine(Server.MapPath("~/Content/technician"), fileName);
                     file.SaveAs(path);
-                    technichian.image = fileName;
+                    tech.image = fileName;
                 }
+                
 
-
-                db.Technicians.Add(technichian);
+                db.Technicians.Add(tech);
                 db.SaveChanges();
                 return View("TechMember", db.Technicians.ToList());
             }
@@ -105,7 +121,27 @@ namespace ProjectSE.Controllers
             Technician technician = db.Technicians.Find(id);
             db.Technicians.Remove(technician);
             db.SaveChanges();
-            return RedirectToAction("TechMember", db.Technicians.ToList());
+
+            int? accId = db.Technicians
+                .Where(t => t.technician_Id == id)
+                .Select(t => t.acc_id)
+                .FirstOrDefault();
+
+            if (accId != null)
+            {
+                
+                Account accountToRemove = db.Accounts.Find(accId);
+
+                
+                if (accountToRemove != null)
+                {
+                   
+                    db.Accounts.Remove(accountToRemove);
+                    db.SaveChanges();
+                    
+                }
+            }
+                return RedirectToAction("TechMember", db.Technicians.ToList());
         }
         public ActionResult ListRepairAdmin(string sortList, string searchString)
         {
