@@ -57,103 +57,155 @@
     </style>
 </head>
 <body>
-    <div class="topic-list">
-        <h3>รายการแจ้งซ่อม</h3>
-    </div>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nameInform)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.topicRepair)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.typeRepair)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.details)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.picture)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.time)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.roomId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.building_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.floor)
-            </th>
-
-
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    @if (Model == null)
+    {
+        <div class="topic-list">
+            <h3>รายการแจ้งซ่อม</h3>
+        </div>
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nameInform)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.topicRepair)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.typeRepair)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.details)
-                </td>
-                <td>
-                    <img src=@Url.Content("~/Content/Repair-image/"+(item.picture)) style="width: 100px;height: auto" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.time)
-                </td>
-                <td>
-                    <div class="status" style="background-color: @(GetStatusColor(item.status))">
-                        <label class="text-status">@Html.DisplayFor(modelItem => item.status)</label>
-                        
-                    </div>
+                <th>
+                    @Html.DisplayNameFor(model => model.nameInform)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.topicRepair)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.typeRepair)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.details)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.picture)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.time)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.roomId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.building_name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.floor)
+                </th>
 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.roomId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.building_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.floor)
-                </td>
+
+            </tr>
+        </table>
+    }
+    else
+    {
+        <div class="topic-list">
+            <h3>รายการแจ้งซ่อม</h3>
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.nameInform)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.topicRepair)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.typeRepair)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.details)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.picture)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.time)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.roomId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.building_name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.floor)
+                </th>
 
 
             </tr>
 
-        }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nameInform)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.topicRepair)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.typeRepair)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.details)
+                    </td>
+                    <td>
+                        <img src=@Url.Content("~/Content/Repair-image/"+(item.picture)) style="width: 100px;height: auto" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.time)
+                    </td>
+                    <td>
+                        <div class="status" style="background-color: @(GetStatusColor(item.status))">
+                            <label class="text-status">@Html.DisplayFor(modelItem => item.status)</label>
+
+                        </div>
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.roomId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.building_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.floor)
+                    </td>
+
+
+                </tr>
+
+            }
 
 
 
-    </table>
+        </table>
+    }
+
 
     @functions {
         // ฟังก์ชั่นเพื่อรับสีของสถานะ
@@ -164,7 +216,7 @@
                 case "รอดำเนินการ":
                     return "rgb(104, 196, 245, 0.4)";
                 case "รับเรื่อง":
-                    return "rgb(255,135,0, 0.7)"; 
+                    return "rgb(255,135,0, 0.7)";
                 case "เดินทาง":
                     return "rgb(250,255,0, 0.7)";
                 case "ถึงแล้ว":
@@ -180,6 +232,6 @@
             }
         }
     }
-    
+
 </body>
 </html>

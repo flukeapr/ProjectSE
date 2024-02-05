@@ -130,7 +130,7 @@
         <button type="submit">
 
             <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAWhJREFUSEvFVYttAjEMtScpTNIyCTBJ6SRlE2AS2MTNO9mWk8vnhHoQCeVEHD8/+9lhWnnxyv5pCCAiX0T0SUTY8Xuk/ar7jZnx3VxNABHZENGvOu35AOCOmbHPVhVARL6T5UmtcfGcnEzRKjCYfCQWh3SGQCYbZv4pEWYAhfNT7ZI5UbB9CGZmnwHohbs6AO1ufgMQGF2UyTHeKwFgBGPQPZZ0EzvBf4lVj/mDmbd21w1FBPlEUTODCDIAiKJw9hHACtvMew8AgYT6uY8IgOjBAjmEamZrAYDV4srMuymdoVAoLmhuTdPmcNTtVpMgEk/zvwJomjIhRABTUFOeC1JkQnEVvrTI3ixRx0tlqumxLLhQIoOo42cazVToCspUpBEAxEZFU66VDjf2OMpqWGt5KxSMu8OuaK6qfQ0ALOKEtAfmpg8NHMEGj5CN62Yw73lwinmPaC1i5BrLWY1G+vBNHo2J0fnqAH/wo+UZ6yEoJAAAAABJRU5ErkJggg==" /></span>
-            <span>@Html.ActionLink("เพิ่มสมาชิก", "", null, new { style = "color: white; text-decoration: none;" })</span>
+            <span>@Html.ActionLink("เพิ่มสมาชิก", "AddRent", null, new { style = "color: white; text-decoration: none;" })</span>
         </button>
 
 
@@ -179,7 +179,7 @@
             window.location.href = '@Url.Action("RenterEdit", "Admin")/' + renterID;
         }
         function renterDeletebyID(renterID) {
-            window.location.href = '@Url.Action("TechDelete", "Admin")/' + renterID;
+            window.location.href = '@Url.Action("RenterDelete", "Admin")/' + renterID;
     }
     </script>
 </body>

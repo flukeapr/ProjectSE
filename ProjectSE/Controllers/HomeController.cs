@@ -163,6 +163,7 @@ namespace ProjectSE.Controllers
 
         public ActionResult Estimate()
         {
+            var userName = Session["UserName"] as string;
             var result = from r in db.Repairs
                          join e in db.Estimates on r.estimate_Id equals e.estimate_Id 
                          select new ProjectSE.Models.EstimateViewModel
@@ -175,7 +176,8 @@ namespace ProjectSE.Controllers
                              Status = r.status,
                              Date = r.date.HasValue ? r.date.Value : default(DateTime),
                              Time = r.time.HasValue ? r.time.ToString() : string.Empty,
-                             EstimateStatus = e.status
+                             EstimateStatus = e.status,
+                             UserName= r.userNameR
                          };
 
             return View(result.ToList());

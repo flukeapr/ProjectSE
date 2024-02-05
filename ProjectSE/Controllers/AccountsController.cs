@@ -64,7 +64,9 @@ namespace ProjectSE.Controllers
         
         public ActionResult LogOff()
         {
-            
+            Session["UserNameT"] = null;
+            Session["UserName"] = null;
+            Session["UserId"] = null;
             return View("Login");
         }
 

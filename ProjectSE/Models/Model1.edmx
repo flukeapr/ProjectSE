@@ -97,18 +97,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_roomId_ToRoomId">
-          <End Role="Building" Type="Self.Building" Multiplicity="1" />
-          <End Role="Renter" Type="Self.Renter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Building">
-              <PropertyRef Name="room_Id" />
-            </Principal>
-            <Dependent Role="Renter">
-              <PropertyRef Name="room_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DatabaseSEModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Building" EntityType="Self.Building" Schema="dbo" store:Type="Tables" />
@@ -120,10 +108,6 @@
           <AssociationSet Name="FK_Role_ToRole" Association="Self.FK_Role_ToRole">
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
-          </AssociationSet>
-          <AssociationSet Name="FK_roomId_ToRoomId" Association="Self.FK_roomId_ToRoomId">
-            <End Role="Building" EntitySet="Building" />
-            <End Role="Renter" EntitySet="Renter" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -147,19 +131,6 @@
           <Property Name="room_Id" Type="Int32" Nullable="false" />
           <Property Name="building_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="floor" Type="Int32" />
-          <NavigationProperty Name="Renters" Relationship="Self.FK_roomId_ToRoomId" FromRole="Building" ToRole="Renter" />
-        </EntityType>
-        <EntityType Name="Renter">
-          <Key>
-            <PropertyRef Name="renter_Id" />
-          </Key>
-          <Property Name="renter_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="room_Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Building" Relationship="Self.FK_roomId_ToRoomId" FromRole="Renter" ToRole="Building" />
-          <Property Name="acc_id" Type="Int32" />
         </EntityType>
         <EntityType Name="Repair">
           <Key>
@@ -217,22 +188,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_roomId_ToRoomId">
-          <End Role="Building" Type="Self.Building" Multiplicity="1" />
-          <End Role="Renter" Type="Self.Renter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Building">
-              <PropertyRef Name="room_Id" />
-            </Principal>
-            <Dependent Role="Renter">
-              <PropertyRef Name="room_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DatabaseSEEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Buildings" EntityType="Self.Building" />
-          <EntitySet Name="Renters" EntityType="Self.Renter" />
           <EntitySet Name="Repairs" EntityType="Self.Repair" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Technicians" EntityType="Self.Technician" />
@@ -240,11 +198,8 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="Account" EntitySet="Accounts" />
           </AssociationSet>
-          <AssociationSet Name="FK_roomId_ToRoomId" Association="Self.FK_roomId_ToRoomId">
-            <End Role="Building" EntitySet="Buildings" />
-            <End Role="Renter" EntitySet="Renters" />
-          </AssociationSet>
           <EntitySet Name="Estimates" EntityType="DatabaseSEModel.Estimate" />
+          <EntitySet Name="Renters" EntityType="DatabaseSEModel.Renter" />
         </EntityContainer>
         <EntityType Name="Estimate">
           <Key>
@@ -254,6 +209,17 @@
           <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="des" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="rate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Renter">
+          <Key>
+            <PropertyRef Name="renter_Id" />
+          </Key>
+          <Property Name="renter_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="room_Id" Type="Int32" Nullable="false" />
+          <Property Name="acc_id" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -277,18 +243,6 @@
                 <ScalarProperty Name="room_Id" ColumnName="room_Id" />
                 <ScalarProperty Name="building_name" ColumnName="building_name" />
                 <ScalarProperty Name="floor" ColumnName="floor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Renters">
-            <EntityTypeMapping TypeName="DatabaseSEModel.Renter">
-              <MappingFragment StoreEntitySet="Renter">
-                <ScalarProperty Name="acc_id" ColumnName="acc_id" />
-                <ScalarProperty Name="renter_Id" ColumnName="renter_Id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="room_Id" ColumnName="room_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -345,6 +299,18 @@
                 <ScalarProperty Name="des" ColumnName="des" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="estimate_Id" ColumnName="estimate_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Renters">
+            <EntityTypeMapping TypeName="DatabaseSEModel.Renter">
+              <MappingFragment StoreEntitySet="Renter">
+                <ScalarProperty Name="acc_id" ColumnName="acc_id" />
+                <ScalarProperty Name="room_Id" ColumnName="room_Id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="renter_Id" ColumnName="renter_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

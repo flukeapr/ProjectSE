@@ -16,7 +16,9 @@ namespace ProjectSE.Controllers
     {
         DatabaseSEEntities db = new DatabaseSEEntities();
 
-        
+       
+
+
         // GET: Admin
         public ActionResult Index()
         {
@@ -31,7 +33,25 @@ namespace ProjectSE.Controllers
 
         public ActionResult AddTech()
         {
-            return View();
+            var TypeRepairTech = new List<String>
+        {
+            "ช่างปะปา" ,
+            "ช่างไฟฟ้า" ,
+            "ช่างเฟอนิเจอร์" ,
+            "ช่างเครื่องใช้ไฟฟ้า" ,
+            "ช่างทาสีและซ่อมแซมพื้น" ,
+            "ช่างซ่อมแซมทั่วไป" ,
+            "ช่างโครงสร้างและประตู-หน้าต่าง"
+
+
+        };
+
+            ViewBag.selectedTypeRepair = TypeRepairTech;
+            var tech = new TechViewModel
+            {
+                selectedTypeRepair = TypeRepairTech,
+            };
+            return View(tech);
         }
 
 
@@ -171,6 +191,39 @@ namespace ProjectSE.Controllers
             return View(db.Renters.ToList()) ;
         }
 
+        public ActionResult AddRent()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddRent(RenterViewModel renterViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var renter = renterViewModel.renter ?? new Renter(); // Instantiate renter if null
+                var account = renterViewModel.account ?? new Account(); // Instantiate account if null
+
+                account.userName = renterViewModel.account.userName;
+                account.password = renterViewModel.account.password;
+                account.role = 2;
+
+                db.Accounts.Add(account);
+                db.SaveChanges();
+
+                renter.name = renterViewModel.renter.name;
+                renter.address = renterViewModel.renter.address;
+                renter.phone = renterViewModel.renter.phone;
+                renter.renter_Id = renterViewModel.renter.renter_Id;
+                renter.acc_id = account.Id;
+
+                db.Renters.Add(renter);
+                db.SaveChanges();
+
+                return View("RenterMem", db.Renters.ToList());
+            }
+
+            return View();
+        }
         public ActionResult RenterEdit(int? id)
         {
             if (id == null)
@@ -210,7 +263,7 @@ namespace ProjectSE.Controllers
             return View(renter);
         }
 
-        // POST: Books/Delete/5
+       
         [HttpPost, ActionName("RenterDelete")]
         [ValidateAntiForgeryToken]
         public ActionResult RenterDeleteConfirmed(int id)
@@ -218,6 +271,26 @@ namespace ProjectSE.Controllers
             Renter renter = db.Renters.Find(id);
             db.Renters.Remove(renter);
             db.SaveChanges();
+
+            int? accId = db.Renters
+                .Where(t => t.renter_Id == id)
+                .Select(t => t.acc_id)
+                .FirstOrDefault();
+
+            if (accId != null)
+            {
+
+                Account accountToRemove = db.Accounts.Find(accId);
+
+
+                if (accountToRemove != null)
+                {
+
+                    db.Accounts.Remove(accountToRemove);
+                    db.SaveChanges();
+
+                }
+            }
             return RedirectToAction("RenterMem", db.Renters.ToList());
         }
 

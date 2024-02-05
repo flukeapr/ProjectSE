@@ -94,6 +94,7 @@
                 var submit = document.querySelector('.submit');
                 var lineUN = document.querySelector('#lineUn');
                 var circleUN = document.querySelector('.UnComplete');
+                var result = document.querySelector('.result');
                 if (status === "ถึงแล้ว") {
                     unsubmit.style.display = 'flex';
                     more.style.display = 'flex';
@@ -104,12 +105,13 @@
                     more.style.display = 'none';
                     lineUN.style.display = 'none';
                     circleUN.style.display = 'none';
+                    result.style.display = 'flex';
                 }
                 else if (status === "ไม่สำเร็จ") {
                     submit.style.display = 'none';
                     unsubmit.style.display = 'none';
                     more.style.display = 'none';
-                    
+                    result.style.display = 'flex';
                 }
 
 
@@ -117,6 +119,7 @@
                     unsubmit.style.display = 'none';
                     more.style.display = 'none';
                     submit.style.display = 'flex';
+                    result.style.display = 'none';
                 }
             }
 
@@ -317,6 +320,34 @@
         .img-des{
             border:1px solid #000000;
         }
+        .result {
+            display: flex;
+           flex-direction:column;
+          justify-content:center;
+            margin: 20px 0 20px 0;
+        }
+       .title{
+           display:flex;
+           flex-direction:column;
+           justify-content:center;
+       }
+        .result-d {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .result h3{
+            display:flex;
+            justify-content:center;
+        }
+        .result h5 {
+            display: flex;
+            justify-content: center;
+        }
+        .pic {
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -349,14 +380,26 @@
 
     </div>
 
-    <div class="more-detail" >
-        <div class="des" >
-            <textarea name="description" class="text-des" ></textarea>
+    <div class="more-detail">
+        <div class="des">
+            <textarea name="description" class="text-des"></textarea>
             <input type="file" name="file" class="img-des" />
+
+
         </div>
     </div>
 
-
+    <div class="result">
+        <div class="title"><h3>ผลการซ่อม</h3>  <h5>@Html.DisplayFor(model => model.desT)</h5></div>
+        <div class="result-d">
+            <h3>รูปผลการซ่อม</h3>
+            <div class="pic">
+                <img src=@Url.Content("~/Content/DesT-Pic/"+(Model.desT_picture)) style="width: 100px;height: auto;" />
+            </div>
+            
+        </div>
+        
+    </div>
 
     <div class="button">
         <div class="cancel">
@@ -368,7 +411,7 @@
         </div>
 
 
-        <div class="Unsubmit" >
+        <div class="Unsubmit">
             <div class="col-md-offset-2 col-md-10">
                 <input type="button" value="ไม่สำเร็จ" class="btn-Unsubmit" />
             </div>
@@ -383,7 +426,7 @@
                 @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.EditorFor(model => model.repair_Id, new { htmlAttributes = new { @class = "form-control" } })
             </div>
-            <div class="submit" >
+            <div class="submit">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" id="updateButton" class="btn-submit" />
                 </div>
@@ -391,7 +434,7 @@
 
         }
     </div>
-   
+
 
 </body>
 </html>

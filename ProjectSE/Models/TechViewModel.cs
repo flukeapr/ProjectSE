@@ -10,5 +10,6 @@ namespace ProjectSE.Models
         public Technician technician { get; set; }
 
         public Account account { get; set; }
+        public List<String> selectedTypeRepair { get; set; }
     }
 }

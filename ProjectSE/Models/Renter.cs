@@ -15,6 +15,7 @@ namespace ProjectSE.Models
 
     public partial class Renter
     {
+
         public int renter_Id { get; set; }
         [Display(Name = "ชื่อ :")]
         public string name { get; set; }
@@ -25,7 +26,5 @@ namespace ProjectSE.Models
         [Display(Name = "เลขห้อง :")]
         public int room_Id { get; set; }
         public Nullable<int> acc_id { get; set; }
-
-        public virtual Building Building { get; set; }
     }
 }

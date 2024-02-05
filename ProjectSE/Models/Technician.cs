@@ -28,5 +28,7 @@ namespace ProjectSE.Models
         public string image { get; set; }
         public Nullable<int> acc_id { get; set; }
         public string userNameT { get; set; }
+
+        public List<String> selectedTypeRepair { get; set; }
     }
 }

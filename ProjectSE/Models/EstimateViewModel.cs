@@ -26,5 +26,7 @@ namespace ProjectSE.Models
         public string Time { get; set; }
         [Display(Name = "แบบประเมิน")]
         public string EstimateStatus { get; set; }
+
+        public string UserName { get; set; }
     }
 }

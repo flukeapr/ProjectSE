@@ -14,17 +14,8 @@ namespace ProjectSE.Models
     
     public partial class Building
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Building()
-        {
-            this.Renters = new HashSet<Renter>();
-        }
-    
         public int room_Id { get; set; }
         public string building_name { get; set; }
         public Nullable<int> floor { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Renter> Renters { get; set; }
     }
 }
