@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -44,35 +45,36 @@ namespace ProjectSE.Controllers
             return View(repair);
         }
         [HttpPost]
-        public ActionResult UpdateStatus(int? id, string status, string description, HttpPostedFileBase file)
+        public ActionResult UpdateStatus(int? id, string status, string description, HttpPostedFileBase file,Repair model)
         {
             var userName = Session["UserNameT"] as string;
-            var userIdObject = Session["UserId"] ;           
-            var TechId = (int)userIdObject;
+            
 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
            Repair  repair = db.Repairs.Find(id);
-
+            
+            if (file != null && file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Content/DesT-Pic"), fileName);
+                file.SaveAs(path);
+                repair.desT_picture = fileName;
+            }
             if (ModelState.IsValid)
             {
 
-                repair.desT = description;
-                if (file != null && file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Content/DesT-Pic"), fileName);
-                    file.SaveAs(path);
-                    repair.desT_picture = fileName;
-                }
+                
 
                 switch (repair.status)
                 {
                     case "รอดำเนินการ":
                         repair.status = "รับเรื่อง";
                         repair.userNameT = userName;
+                        var userIdObject = Session["UserId"];
+                        var TechId = (int)userIdObject;
                         repair.tech_id = TechId;
                         break;
                     case "รับเรื่อง":
@@ -83,12 +85,16 @@ namespace ProjectSE.Controllers
                         break;
                     case "ถึงแล้ว":
                         repair.status = status;
+                        repair.desT = description;
                         break;
                     default:
                         // สถานะอื่น ๆ ไม่ต้องทำอะไร
                         break;
                 }
+               
                 db.SaveChanges();
+                db.Entry(repair).Property(r => r.desT).IsModified = true;
+                db.Entry(repair).Property(r => r.desT_picture).IsModified = true;
                 db.Entry(repair).Property(r => r.status).IsModified = true;
                 db.Entry(repair).Property(r => r.userNameT).IsModified = true;
                 return RedirectToAction("ListRepairTech",db.Repairs.ToList().Where(a => a.userNameT == userName));

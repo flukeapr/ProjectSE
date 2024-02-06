@@ -14,7 +14,7 @@ namespace ProjectSE.Controllers
         DatabaseSEEntities db = new DatabaseSEEntities();
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public ActionResult MenuRepair()
@@ -252,17 +252,17 @@ namespace ProjectSE.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // กรณีเกิดข้อผิดพลาดในการบันทึกข้อมูล
+                   
                     ViewBag.ErrorMessage = "เกิดข้อผิดพลาดในการบันทึกข้อมูล: " + ex.Message;
                 }
             }
             else
             {
-                // กรณีข้อมูลที่รับมาไม่ถูกต้อง
+                
                 ViewBag.ErrorMessage = "กรุณากรอกข้อมูลให้ครบถ้วน";
             }
 
-            // หากเกิดข้อผิดพลาดหรือข้อมูลไม่ถูกต้อง ให้กลับไปที่หน้าเดิม
+          
             return View();
         }
     }

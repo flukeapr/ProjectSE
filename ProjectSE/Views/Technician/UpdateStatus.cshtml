@@ -82,9 +82,9 @@
                 case "สำเร็จ":
                     updateButton.value = "ยกเลิก";
                     break;
-               
+
                 default:
-                   
+
                     break;
             }
 
@@ -99,6 +99,7 @@
                     unsubmit.style.display = 'flex';
                     more.style.display = 'flex';
                     submit.style.display = 'flex';
+                    result.style.display = 'none';
                 } else if (status === "สำเร็จ") {
                     submit.style.display = 'none';
                     unsubmit.style.display = 'none';
@@ -127,44 +128,53 @@
             toggleUIVisibility();
 
 
-       var unsubmitButton = document.querySelector('.btn-Unsubmit');
+            var unsubmitButton = document.getElementById('btn-Unsubmit');
     var submitButton = document.getElementById('updateButton');  // แก้ไขตรงนี้
 
         if (status === "ถึงแล้ว") {
-           
+
             unsubmitButton.addEventListener('click', function () {
                 updateStatus('ไม่สำเร็จ');
-                window.location.href = '@Url.Action("ListRepairTech", "Technician")';
+                
             });
             submitButton.addEventListener('click', function () {
                 updateStatus('สำเร็จ');
-                window.location.href = '@Url.Action("ListRepairTech", "Technician")';
+                
             });
-        } 
+        }
 
     function updateStatus(status) {
-        var url = '@Url.Action("UpdateStatus", "Technician")';
-        var data = { id: @Model.repair_Id, status: status, description: document.querySelector('textarea[name="description"]').value, file: document.querySelector('input[name="file"]').files[0] };
+    var url = '@Url.Action("UpdateStatus", "Technician")';
+        var description = document.querySelector('input[name="description"]').value;
+    var data = {
+        id: '@Model.repair_Id',
+        status: status,
+        description: description,
+        file: document.querySelector('input[name="file"]').files[0]
+    };
 
-        var formData = new FormData();
-        formData.append("id", data.id);
-        formData.append("status", data.status);
-        formData.append("description", data.description);
-        formData.append("file", data.file);
+    var formData = new FormData();
+    formData.append("id", data.id);
+    formData.append("status", data.status);
+    formData.append("description", data.description);
+    formData.append("file", data.file);
 
-        fetch(url, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(result => {
-            console.log(result);
-        })
-        .catch(error => {
-            console.error('Error:', error);
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+        // จะสามารถเพิ่มโค้ดที่ต้องการหลังจากการอัพเดตสถานะได้ที่นี่
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
         });
-    }
-        });
+        
+
     </script>
 
 
@@ -295,6 +305,7 @@
         .btn-Unsubmit {
             display: flex;
             justify-content: center;
+            align-items:center;
             background-color: #FF0000;
             width: 150px;
             height: 50px;
@@ -382,7 +393,9 @@
 
     <div class="more-detail">
         <div class="des">
-            <textarea name="description" class="text-des"></textarea>
+            <h3>คำอธิบายการซ่อม</h3>
+            <input name="description" class="text-des" />
+            <h3>รูปการซ่อม</h3>
             <input type="file" name="file" class="img-des" />
 
 
@@ -390,15 +403,57 @@
     </div>
 
     <div class="result">
-        <div class="title"><h3>ผลการซ่อม</h3>  <h5>@Html.DisplayFor(model => model.desT)</h5></div>
-        <div class="result-d">
-            <h3>รูปผลการซ่อม</h3>
-            <div class="pic">
-                <img src=@Url.Content("~/Content/DesT-Pic/"+(Model.desT_picture)) style="width: 100px;height: auto;" />
+        @if (Model.desT == null && Model.desT_picture == null)
+        {
+            <div class="title"><h3>ผลการซ่อม</h3><h5>ไม่ได้ใส่รายละเอียด</h5></div>
+            <div class="result-d">
+                <h3>รูปผลการซ่อม</h3>
+                <div class="pic">
+                    <h5>ไม่ได้ใส่รูปภาพประกอบ</h5>
+                </div>
+
             </div>
-            
-        </div>
-        
+        }
+        else if (Model.desT_picture == null)
+        {
+            <div class="title"><h3>ผลการซ่อม</h3><h5>@Html.DisplayFor(model => model.desT)</h5></div>
+
+
+            <div class="result-d">
+                <h3>รูปผลการซ่อม</h3>
+                <div class="pic">
+                    <h5>ไม่ได้ใส่รูปภาพประกอบ</h5>
+                </div>
+
+            </div>
+        }
+        else if (Model.desT == null)
+        {
+            <div class="title"><h3>ผลการซ่อม</h3><h5>ไม่ได้ใส่รายละเอียด</h5></div>
+
+
+            <div class="result-d">
+                <h3>รูปผลการซ่อม</h3>
+                <div class="pic">
+                    <img src=@Url.Content("~/Content/DesT-Pic/"+(Model.desT_picture)) style="width: 300px;height: auto;" />
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="title"><h3>ผลการซ่อม</h3><h5>@Html.DisplayFor(model => model.desT)</h5></div>
+            <div class="result-d">
+                <h3>รูปผลการซ่อม</h3>
+                <div class="pic">
+                    <img src=@Url.Content("~/Content/DesT-Pic/"+(Model.desT_picture)) style="width: 300px;height: auto;" />
+                </div>
+            </div>
+        }
+
+
+
+
     </div>
 
     <div class="button">
@@ -413,22 +468,23 @@
 
         <div class="Unsubmit">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="ไม่สำเร็จ" class="btn-Unsubmit" />
+                <button type="submit" value="ไม่สำเร็จ" class="btn-Unsubmit" id="btn-Unsubmit">ไม่สำเร็จ</button>
             </div>
         </div>
 
 
 
 
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("UpdateStatus", "Technician", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div hidden>
+
                 @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.EditorFor(model => model.repair_Id, new { htmlAttributes = new { @class = "form-control" } })
             </div>
             <div class="submit">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" id="updateButton" class="btn-submit" />
+                    <input type="submit" id="updateButton" class="btn-submit" value="Submit" />
                 </div>
             </div>
 

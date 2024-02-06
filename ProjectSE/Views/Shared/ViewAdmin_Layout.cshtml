@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title></title>
+    <title>ADMIN-PAGE</title>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     @Scripts.Render("~/bundles/modernizr")
     <style>
@@ -97,7 +97,7 @@
         }
 
         .log-off {
-            margin-top: 510px;
+            margin-top: 540px;
             display: flex;
             justify-content: center;
             flex-direction: row;
@@ -131,28 +131,28 @@
         <div class="menu">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="hone">
                         <span><box-icon type='solid' name='home'></box-icon></span>
                         <span>@Html.ActionLink("หน้าหลัก", "Index", "Admin")</span>
                     </a>
 
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="member">
                         <span><box-icon name='user-plus'></box-icon></span>
                         <span>@Html.ActionLink("สมาชิกช่าง", "TechMember", "Admin")</span>
                     </a>
 
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="member">
                         <span><box-icon name='user-plus'></box-icon></span>
                         <span>@Html.ActionLink("สมาชิกผู้พักอาศัย", "RenterMem", "Admin")</span>
                     </a>
 
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="repair">
                         <span><box-icon name='file'></box-icon></span>
                         <span>@Html.ActionLink("ประวัติการซ่อม", "ListRepairAdmin", "Admin")</span>
                     </a>
@@ -160,7 +160,7 @@
 
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="report">
                         <span><box-icon name='objects-vertical-bottom'></box-icon></span>
                         <span>@Html.ActionLink("รายงาน", "ReportAdmin", "Admin")</span>
                     </a>

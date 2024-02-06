@@ -19,7 +19,7 @@ namespace ProjectSE.Controllers
         public ActionResult Login()
         {
 
-            return View();
+            return View("Login");
         }
         [HttpPost]
        
@@ -29,13 +29,20 @@ namespace ProjectSE.Controllers
             
             
               var user = db.Accounts.FirstOrDefault(x => x.userName == model.userName && x.password == model.password );
-            
-                if (user != null)
+            var isPasswordValid = db.Accounts.Any(x => x.password == model.password);
+
+            if (!isPasswordValid)
+            {
+                ModelState.AddModelError("password", "รหัสผ่านไม่ถูกต้อง");
+                return View(model);
+            }
+            if (user != null)
                 {
                 Session["UserNameT"] = user.userName;
                 Session["UserName"] = user.userName;
                 var techId = db.Technicians.Where(t => t.acc_id == user.Id).Select(t => t.technician_Id).FirstOrDefault();
                 Session["UserId"] = techId;
+                
                 if (user.role == 1)
                   {
                     
@@ -64,10 +71,14 @@ namespace ProjectSE.Controllers
         
         public ActionResult LogOff()
         {
-            Session["UserNameT"] = null;
-            Session["UserName"] = null;
-            Session["UserId"] = null;
-            return View("Login");
+            if (Session != null)
+            {
+                
+                Session["UserNameT"] = null;
+                Session["UserName"] = null;
+                Session["UserId"] = null;
+            }
+            return RedirectToAction("Login");
         }
 
         public ActionResult register()

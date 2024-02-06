@@ -17,33 +17,33 @@ namespace ProjectSE.Models
     {
         public int repair_Id { get; set; }
 
-        [Display(Name = "ชือผู้แจ้งซ่อม")]
+        [Display(Name = "ชือผู้แจ้งซ่อม ")]
         public string nameInform { get; set; }
-        [Display(Name = "หัวข้อการบริการ")]
+        [Display(Name = "หัวข้อการบริการ ")]
         public string topicRepair { get; set; }
-        [Display(Name = "ประเภทการบริการ")]
+        [Display(Name = "ประเภทการบริการ ")]
         public string typeRepair { get; set; }
-        [Display(Name = "รายละเอียด")]
+        [Display(Name = "รายละเอียด ")]
         public string details { get; set; }
-        [Display(Name = "ภาพประกอบ")]
+        [Display(Name = "ภาพประกอบ ")]
         public string picture { get; set; }
-        [Display(Name = "เบอร์โทรศัพท์")]
+        [Display(Name = "เบอร์โทรศัพท์ ")]
         public string phone { get; set; }
-        [Display(Name = "วันที่ต้องการซ่อม")]
+        [Display(Name = "วันที่ต้องการซ่อม ")]
         public Nullable<System.DateTime> date { get; set; }
-        [Display(Name = "เวลาที่ต้องการซ่อม")]
+        [Display(Name = "เวลาที่ต้องการซ่อม ")]
         public Nullable<System.TimeSpan> time { get; set; }
         [Display(Name = "สถานะ")]
         public string status { get; set; }
-        [Display(Name = "ห้อง")]
+        [Display(Name = "ห้อง ")]
         public Nullable<int> roomId { get; set; }
 
         public List<String> selectedTypeRepair { get; set; }
         public List<String> selectedbuilding_Name { get; set; }
         public List<String> selectedFloor { get; set; }
-        [Display(Name = "ตึก")]
+        [Display(Name = "ตึก ")]
         public string building_name { get; set; }
-        [Display(Name = "ชั้น")]
+        [Display(Name = "ชั้น ")]
         public string floor { get; set; }
         public Nullable<int> technician_Id { get; set; }
 

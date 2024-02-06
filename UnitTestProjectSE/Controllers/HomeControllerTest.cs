@@ -22,6 +22,7 @@ namespace UnitTestProjectSE.Controllers
             ViewResult result = controller.Index() as ViewResult;
 
             Assert.IsNotNull(result);       
+            Assert.AreEqual("Index",result.ViewName);
         }
        
        

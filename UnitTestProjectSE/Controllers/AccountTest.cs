@@ -19,7 +19,7 @@ namespace UnitTestProjectSE.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(string.Empty, result.ViewName);
+            Assert.AreEqual("Login", result.ViewName);
         }
 
         [TestMethod]
@@ -29,11 +29,11 @@ namespace UnitTestProjectSE.Controllers
             var controller = new AccountsController();
 
             // Act
-            var result = controller.LogOff() as ViewResult;
+            var result = controller.LogOff() as RedirectToRouteResult;
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("Login", result.ViewName);
+            Assert.AreEqual("Login", result.RouteValues["action"]);
         }
     }
 }
